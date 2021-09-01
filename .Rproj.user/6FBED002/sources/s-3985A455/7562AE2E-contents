@@ -1,0 +1,9 @@
+---
+title: "About this blog"
+description: |
+ This blog contians information and analysis of COVID-19 situations in Chile from February 2020 to August 2021, including daily and cumulative confirmed cases, daily and total tests conducted, and demographics of local population etc.
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```

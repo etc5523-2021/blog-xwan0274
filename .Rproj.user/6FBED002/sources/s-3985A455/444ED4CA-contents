@@ -1,0 +1,26 @@
+---
+title: "Welcome to COVID-19 in Chile"
+description: |
+  Welcome to our new blog, COVID-19 in Chile. We hope you enjoy 
+  reading what we have to say!
+author:
+  - name: Rachel Xinrui WANG 
+    url: https://github.com/etc5523-2021/blog-xwan0274
+    affiliation: MBAt - Monash Univeristy
+    affiliation_url: https://www.monash.edu/study/courses/find-a-course/2022/business-analytics-b6022
+date: 08-31-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+# Learn more about creating blogs with Distill at:
+# https://rstudio.github.io/distill/blog.html
+
+```
+
+
+

@@ -1,7 +1,7 @@
 name: "blog enty"
 title: "COVID-19 in Chile"
 description: |
-  COVID-19 in Chile
+  COVID-19 in Chile from Feb 2020 to Aug 2021
 output_dir: "docs"
 navbar:
   right:
