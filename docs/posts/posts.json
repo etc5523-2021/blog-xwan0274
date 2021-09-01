@@ -2,18 +2,18 @@
   {
     "path": "posts/2021-09-01-data-description/",
     "title": "Data Description",
-    "description": "A short description of the post.",
+    "description": "The dataset used in this blog is retrieved from Our World in Data on 1 Sep 2021",
     "author": [
       {
         "name": "Rachel Xinrui WANG",
-        "url": "https://github.com/etc5523-2021/blog-xwan0274"
+        "url": {}
       }
     ],
     "date": "2021-09-01",
     "categories": [],
-    "contents": "\r\nDistill is a publication format for scientific and technical writing, native to the web.\r\nLearn more about using Distill at https://rstudio.github.io/distill.\r\n\r\n\r\n\r\n",
+    "contents": "\r\nThe dataset used for all tables, plots and analysis is retrieved from Our World in Data on 1 September 2021, with all data up to date until 31 August 2021. This dataset is publicly available and completely open access under the Creative Commons BY license, and is allowed to be used for analysis purpose of this blog.\r\nThe original dataset includes data from 233 countries, and contains 62 columns and 113313 observations in total. This blog only focus on the COVID-19 situation in Chile, and the areas of interests are only related to confirmed cases, number of tests conducted, number of death, vaccinations performed, and relevant demographics of the local population.\r\nData Cleaning\r\nTherefore, the dataset has been filtered and selected with only relevant variables and observations from Chile, stored in a tidy format for analysis purpose of this report.\r\nThe filtered dataset contains 17 variables and 556 observations from Feb 2020 to Aug 2021, the description of the variables included are listed in the following section.\r\nVariables Included\r\nVariable\r\nData Type\r\nDescription\r\niso_code\r\ncharacter\r\nCountry code\r\nlocation\r\ncharacter\r\nCountry name\r\ndate\r\ndate\r\nDate\r\ntotal_cases\r\nDouble\r\nTotal confirmed cases - cumulative\r\nnew_cases\r\nDouble\r\nNew confirmed cases of the day\r\ntotal_deaths\r\nDouble\r\nTotal death - cumulative\r\nnew_deaths\r\nDouble\r\nNew death of the day\r\ntotal_tests\r\nDouble\r\nTotal tests conducted - cumulative\r\nnew_tests\r\nDouble\r\nNew tests conducted of the day\r\npositive_rate\r\nDouble\r\nPositive test results rate of the day\r\ntests_per_case\r\nDouble\r\nNumber of tests conducted for 1 confirmed case - daily\r\ntotal_vaccinations\r\nDouble\r\nTotal vaccinations performed - cumulative\r\nnew_vaccinations\r\nDouble\r\nNew vaccinations performed of the day\r\npeople_vaccinated\r\nDouble\r\nTotal number of people vaccinated - cumulative\r\npeople_vaccinated_per_hundred\r\nDouble\r\nVaccinated rate per hundred people\r\npeople_fully_vaccinated\r\nDouble\r\nTotal number of people fully vaccinated - cumulative\r\npeople_fully_vaccinated_per_hundred\r\nDouble\r\nFully vaccinated rate per hundred people\r\nData Source Reference\r\nHannah Ritchie, Edouard Mathieu, Lucas Rodés-Guirao, Cameron Appel, Charlie Giattino, Esteban Ortiz-Ospina, Joe Hasell, Bobbie Macdonald, Diana Beltekian and Max Roser (2020) - “Coronavirus Pandemic (COVID-19)”. Published online at OurWorldInData.org. Retrieved from: ‘https://ourworldindata.org/coronavirus’ [Online Resource]\r\n\r\n\r\n\r\n",
     "preview": {},
-    "last_modified": "2021-09-01T14:01:29+10:00",
+    "last_modified": "2021-09-01T16:19:11+10:00",
     "input_file": {}
   },
   {
@@ -23,14 +23,14 @@
     "author": [
       {
         "name": "Rachel Xinrui WANG",
-        "url": "https://github.com/etc5523-2021/blog-xwan0274"
+        "url": {}
       }
     ],
     "date": "2021-08-31",
     "categories": [],
-    "contents": "\r\n\r\n\r\n\r\n",
+    "contents": "\r\nCOVID-19 in Chile aims to provide tables, plots and related analysis regarding the COVID-19 situation in Chile between Feb 2020 to Aug 2021.\r\nAll tables, plots and data description can be found in posts and related sections on navigation bar.\r\nDataset used for all analysis was retrieved from Our World in Data on 1 Sep 2021, data contained is updated until 31 Aug 2021.\r\n\r\n\r\n\r\n",
     "preview": {},
-    "last_modified": "2021-09-01T13:37:23+10:00",
+    "last_modified": "2021-09-01T15:24:20+10:00",
     "input_file": {}
   }
 ]

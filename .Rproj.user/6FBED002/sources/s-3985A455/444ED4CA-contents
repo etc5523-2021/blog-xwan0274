@@ -5,9 +5,7 @@ description: |
   reading what we have to say!
 author:
   - name: Rachel Xinrui WANG 
-    url: https://github.com/etc5523-2021/blog-xwan0274
     affiliation: MBAt - Monash Univeristy
-    affiliation_url: https://www.monash.edu/study/courses/find-a-course/2022/business-analytics-b6022
 date: 08-31-2021
 output:
   distill::distill_article:
@@ -17,10 +15,11 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 
-# Learn more about creating blogs with Distill at:
-# https://rstudio.github.io/distill/blog.html
-
 ```
 
 
+COVID-19 in Chile aims to provide tables, plots and related analysis regarding the COVID-19 situation in Chile between Feb 2020 to Aug 2021.
 
+All tables, plots and data description can be found in posts and related sections on navigation bar.
+
+Dataset used for all analysis was retrieved from [Our World in Data](https://ourworldindata.org/coronavirus/country/chile) on 1 Sep 2021, data contained is updated until 31 Aug 2021.
