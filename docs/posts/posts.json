@@ -1,5 +1,22 @@
 [
   {
+    "path": "posts/2021-09-01-data-description/",
+    "title": "Data Description",
+    "description": "A short description of the post.",
+    "author": [
+      {
+        "name": "Rachel Xinrui WANG",
+        "url": "https://github.com/etc5523-2021/blog-xwan0274"
+      }
+    ],
+    "date": "2021-09-01",
+    "categories": [],
+    "contents": "\r\nDistill is a publication format for scientific and technical writing, native to the web.\r\nLearn more about using Distill at https://rstudio.github.io/distill.\r\n\r\n\r\n\r\n",
+    "preview": {},
+    "last_modified": "2021-09-01T14:01:29+10:00",
+    "input_file": {}
+  },
+  {
     "path": "posts/welcome/",
     "title": "Welcome to COVID-19 in Chile",
     "description": "Welcome to our new blog, COVID-19 in Chile. We hope you enjoy \nreading what we have to say!",

@@ -6,14 +6,14 @@
       "description": "This blog contians information and analysis of COVID-19 situations in Chile from February 2020 to August 2021, including daily and cumulative confirmed cases, daily and total tests conducted, and demographics of local population etc.",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-09-01T13:45:32+10:00"
+      "last_modified": "2021-09-01T15:03:44+10:00"
     },
     {
       "path": "index.html",
       "title": "COVID-19 in Chile",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-09-01T13:51:58+10:00"
+      "last_modified": "2021-09-01T15:04:34+10:00"
     }
   ],
   "collections": ["posts/posts.json"]
