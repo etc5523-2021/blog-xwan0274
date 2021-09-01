@@ -6,14 +6,22 @@
       "description": "This blog contains tables, plots and analysis of COVID-19 situations in Chile from February 2020 to August 2021, dataset retrieved on 1 Sep 2021.",
       "author": [],
       "contents": "\r\nThis blog contains information and analysis of COVID-19 situations in Chile from February 2020 to August 2021, including daily and cumulative confirmed cases, daily and total tests conducted, and demographics of local population etc.\r\nData description, tables, plots, analysis and data stories can all be found in posts as well as related sections in this blog. Dataset used in this blog was retrieved on 1 September 2021, all data was updated until 31 August 2021.\r\nOwnership of the data is held by Our World in Data, and this blog is owned by the author specified.\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-09-01T16:18:37+10:00"
+      "last_modified": "2021-09-01T20:23:41+10:00"
     },
     {
       "path": "index.html",
       "title": "COVID-19 in Chile",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-09-01T16:19:47+10:00"
+      "last_modified": "2021-09-01T20:22:58+10:00"
+    },
+    {
+      "path": "tables.html",
+      "title": "Tables - COVID-19 in Chile",
+      "description": "This blog contains a list of tables that relevant to posts in this blog, all tables are created based on the dataset retrieved from Our World in Data on 1 Sep 2021.",
+      "author": [],
+      "contents": "\r\nTable 1 Montly Confirmed Cases, Deaths, Tests and Vaccination Status in 2021\r\n\r\n\r\nDate\r\n\r\n\r\nConfirmed Cases\r\n\r\n\r\nTests Conducted\r\n\r\n\r\nDeaths\r\n\r\n\r\nVaccinated %\r\n\r\n\r\nFully Vaccinated %\r\n\r\n\r\n2021-01-31\r\n\r\n\r\n727109\r\n\r\n\r\n8021139\r\n\r\n\r\n18452\r\n\r\n\r\n0.30\r\n\r\n\r\n0.05\r\n\r\n\r\n2021-02-28\r\n\r\n\r\n824625\r\n\r\n\r\n9358875\r\n\r\n\r\n20572\r\n\r\n\r\n17.26\r\n\r\n\r\n0.29\r\n\r\n\r\n2021-03-31\r\n\r\n\r\n995538\r\n\r\n\r\n11201416\r\n\r\n\r\n23135\r\n\r\n\r\n35.47\r\n\r\n\r\n19.17\r\n\r\n\r\n2021-04-30\r\n\r\n\r\n1198245\r\n\r\n\r\n13043653\r\n\r\n\r\n26353\r\n\r\n\r\n42.51\r\n\r\n\r\n35.21\r\n\r\n\r\n2021-05-31\r\n\r\n\r\n1384346\r\n\r\n\r\n14816953\r\n\r\n\r\n29300\r\n\r\n\r\n55.84\r\n\r\n\r\n41.87\r\n\r\n\r\n2021-06-30\r\n\r\n\r\n1555902\r\n\r\n\r\n16731268\r\n\r\n\r\n32545\r\n\r\n\r\n66.19\r\n\r\n\r\n56.11\r\n\r\n\r\n2021-07-31\r\n\r\n\r\n1615771\r\n\r\n\r\n18421129\r\n\r\n\r\n35448\r\n\r\n\r\n72.00\r\n\r\n\r\n65.35\r\n\r\n\r\nEnd of Aug\r\n\r\n\r\n1638675\r\n\r\n\r\n19960537\r\n\r\n\r\n36937\r\n\r\n\r\n74.85\r\n\r\n\r\n70.19\r\n\r\n\r\n\r\n\r\n\r\n",
+      "last_modified": "2021-09-01T20:30:32+10:00"
     }
   ],
   "collections": ["posts/posts.json"]

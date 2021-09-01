@@ -1,0 +1,101 @@
+---
+title: "Current COVID-19 and Vaccination Status in Chile"
+description: |
+  As on 31 August 2021, over a million confirmed cases and 36,937 deaths have been recorded, however, the good news is more than 70% of the population in Chile is fully vaccinated.
+preview: covid.jpg
+author:
+  - name: Rachel Xinrui WANG
+date: 09-01-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r library, include=FALSE}
+library(tidyverse)
+library(formattable)
+```
+
+```{r data, include=FALSE}
+chile <- read_csv("chile.csv") %>% 
+  select(-...1)
+```
+
+A short data story linked to one of the tables presented (3 marks)
+
+• At least two tables that each follows the recommended presentation of tables in Lecture 3 (5 marks)
+– one table designed for user data exploration (i.e. interactive)
+
+– one table that includes numerical summary statistics linked to the data story; this table may be static and shouldn’t be long
+historical 
+– at least one table should contain title and caption that is communicating a story (i.e. directs the reader to
+the main aspect of table they should notice)
+– the look of tables should be customised to make it relevant or engaging to readers
+
+```{r tabledf, include=FALSE}
+cases <- chile %>% 
+  filter(date == "2021-08-31") %>% 
+  select(iso_code,
+         location,
+         total_cases,
+         new_cases,
+         total_deaths,
+         new_deaths)
+
+details <- chile %>% 
+  filter(date == "2021-08-29") %>% 
+  select(-c(date, 
+            total_cases,
+            new_cases,
+            total_deaths,
+            new_deaths))
+
+updates <- cases %>% 
+  left_join(details,
+            by = c("iso_code", "location")) %>% 
+  mutate(date = "End of Aug")
+
+monthly <- chile %>% 
+  mutate(date = as.character(date)) %>% 
+  filter(date %in% c("2021-01-31",
+                     "2021-02-28",
+                     "2021-03-31",
+                     "2021-04-30",
+                     "2021-05-31",
+                     "2021-06-30",
+                     "2021-07-31"))
+
+tabledf <- do.call("rbind", list(monthly, updates))%>% 
+  select(date,
+         total_cases,
+         total_tests,
+         total_deaths,
+         people_vaccinated_per_hundred,
+         people_fully_vaccinated_per_hundred) %>% 
+  rename("Date" = date,
+         "Confirmed Cases" = total_cases,
+         "Tests Conducted" = total_tests,
+         "Deaths" = total_deaths,
+          "Vaccinated %" = people_vaccinated_per_hundred,
+          "Fully Vaccinated %" = people_fully_vaccinated_per_hundred)
+
+```
+
+
+```{r table}
+formattable(tabledf, 
+            align = c("l", "c", "c", "c", "r", "r"),
+            list(`Date` = formatter("span",
+                                          style = ~style(color = "grey",
+                                                         font.weight = "bold")),
+                 `Confirmed Cases` = color_tile("transparent", "tomato"),
+                 `Tests Conducted` = color_tile("transparent", "steelblue3"),
+                 `Deaths` = color_tile("transparent", "lightcoral"),
+                 `Vaccinated %` = color_bar("lightgreen"),
+                 `Fully Vaccinated %` = color_bar("limegreen")))
+```
+
