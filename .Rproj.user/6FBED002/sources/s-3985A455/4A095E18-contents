@@ -8,11 +8,11 @@ description: |
 knitr::opts_chunk$set(echo = FALSE)
 ```
 
-#### Table 1: Montly Confirmed Cases, Deaths, Tests and Vaccination Status in 2021
-
 ```{r library, include=FALSE}
 library(tidyverse)
 library(formattable)
+library(DT)
+library(gt)
 ```
 
 ```{r df, include = FALSE}
@@ -68,7 +68,9 @@ monthly <- df %>%
                      "2021-06-30",
                      "2021-07-31"))
 
-tabledf <- do.call("rbind", list(monthly, updates))%>% 
+sumtable <- do.call("rbind", list(monthly, updates))
+
+tabledf <-sumtable %>% 
   select(date,
          total_cases,
          total_tests,
@@ -83,6 +85,32 @@ tabledf <- do.call("rbind", list(monthly, updates))%>%
           "Fully Vaccinated %" = people_fully_vaccinated_per_hundred)
 ```
 
+### Table 1: Summary of Positive Rate and Vaccination Status by the End of August in 2021
+
+```{r}
+tabledf1 <- sumtable %>% 
+  select(date,
+         tests_per_case,
+         positive_rate,
+         people_vaccinated,
+         people_fully_vaccinated) %>% 
+  gt() %>% 
+  tab_header(title = "Positive Rate by Tests Dropped to 0.01 with Over 14 Million People Vaccinated",
+             subtitle = "Most Recent Updates Recorded in the End of August 2021") %>% 
+  cols_align(align = "center",
+             columns = 2:5) %>% 
+  tab_source_note(md("Source: 2021 *Our World in Data*")) %>% 
+  cols_label(date = html("Date"),
+             tests_per_case = html("Tests per Case"),
+             positive_rate = html("Positive Rate"),
+             people_vaccinated = html("Vaccinated"),
+             people_fully_vaccinated = html("Fully Vaccinated"))
+
+tabledf1
+```
+
+### Table 2: Monthly Confirmed Cases, Deaths, Tests and Vaccination Status in 2021
+
 ```{r table1}
 formattable(tabledf, 
             align = c("l", "c", "c", "c", "r", "r"),
@@ -94,5 +122,32 @@ formattable(tabledf,
                  `Deaths` = color_tile("transparent", "lightcoral"),
                  `Vaccinated %` = color_bar("lightgreen"),
                  `Fully Vaccinated %` = color_bar("limegreen")))
+```
+
+### Table 3: Records of Confirmed Cases, Deaths and Tests from Feb 2020 to Aug 2021
+
+```{r}
+tabledf2 <- df %>% 
+  select(date,
+         new_cases,
+         total_cases,
+         new_deaths,
+         total_deaths,
+         new_tests,
+         total_tests)
+
+datatable(tabledf2,
+          colnames = c("Date", "New Cases", "Total Cases", "New Deaths", "Total Deaths",
+                       "New Tests", "Total Tests"),
+          options = list(initComplete = JS(
+          "function(settings, json) {",
+          "$(this.api().table().header()).css({'background-color': '#404b5d', 'color': '#fff'});",
+          "}"),
+          pageLength = 10,
+          scrollX = TRUE,
+          columnDefs = list(list(className = "dt-center", targets = 2:7),
+                            list(className = "dt-left", targets = 1),
+                            list(width = "15%", targets = 1)))
+          )
 ```
 

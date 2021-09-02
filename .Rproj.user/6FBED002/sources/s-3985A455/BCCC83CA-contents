@@ -1,7 +1,7 @@
 ---
 title: "Current COVID-19 and Vaccination Status in Chile"
 description: |
-  As on 31 August 2021, over a million confirmed cases and 36,937 deaths have been recorded, however, the good news is more than 70% of the population in Chile is fully vaccinated.
+  As on 31 August 2021, over a million confirmed cases and 36,937 deaths have been recorded, however, the good news is more than 70% of the population in Chile is now fully vaccinated.
 preview: covid.jpg
 author:
   - name: Rachel Xinrui WANG
@@ -18,23 +18,14 @@ knitr::opts_chunk$set(echo = FALSE)
 ```{r library, include=FALSE}
 library(tidyverse)
 library(formattable)
+library(DT)
+library(gt)
 ```
 
 ```{r data, include=FALSE}
 chile <- read_csv("chile.csv") %>% 
   select(-...1)
 ```
-
-A short data story linked to one of the tables presented (3 marks)
-
-• At least two tables that each follows the recommended presentation of tables in Lecture 3 (5 marks)
-– one table designed for user data exploration (i.e. interactive)
-
-– one table that includes numerical summary statistics linked to the data story; this table may be static and shouldn’t be long
-historical 
-– at least one table should contain title and caption that is communicating a story (i.e. directs the reader to
-the main aspect of table they should notice)
-– the look of tables should be customised to make it relevant or engaging to readers
 
 ```{r tabledf, include=FALSE}
 cases <- chile %>% 
@@ -69,7 +60,9 @@ monthly <- chile %>%
                      "2021-06-30",
                      "2021-07-31"))
 
-tabledf <- do.call("rbind", list(monthly, updates))%>% 
+sumtable <- do.call("rbind", list(monthly, updates))
+
+tabledf <-sumtable %>% 
   select(date,
          total_cases,
          total_tests,
@@ -86,6 +79,30 @@ tabledf <- do.call("rbind", list(monthly, updates))%>%
 ```
 
 
+```{r}
+tabledf1 <- sumtable %>% 
+  select(date,
+         tests_per_case,
+         positive_rate,
+         people_vaccinated,
+         people_fully_vaccinated) %>% 
+  gt() %>% 
+  tab_header(title = "Positive Rate by Tests Dropped to 0.01 with Over 14 Million People Vaccinated",
+             subtitle = "Most Recent Updates Recorded in the End of August 2021") %>% 
+  cols_align(align = "center",
+             columns = 2:5) %>% 
+  tab_source_note(md("Source: 2021 *Our World in Data*")) %>% 
+  cols_label(date = html("Date"),
+             tests_per_case = html("Tests per Case"),
+             positive_rate = html("Positive Rate"),
+             people_vaccinated = html("Vaccinated"),
+             people_fully_vaccinated = html("Fully Vaccinated"))
+
+tabledf1
+```
+
+
+
 ```{r table}
 formattable(tabledf, 
             align = c("l", "c", "c", "c", "r", "r"),
@@ -97,5 +114,36 @@ formattable(tabledf,
                  `Deaths` = color_tile("transparent", "lightcoral"),
                  `Vaccinated %` = color_bar("lightgreen"),
                  `Fully Vaccinated %` = color_bar("limegreen")))
+```
+
+
+
+
+
+```{r, include=FALSE}
+tabledf2 <- chile %>% 
+  select(date,
+         new_cases,
+         total_cases,
+         new_deaths,
+         total_deaths,
+         new_tests,
+         total_tests)
+```
+
+```{r}
+datatable(tabledf2,
+          colnames = c("Date", "New Cases", "Total Cases", "New Deaths", "Total Deaths",
+                       "New Tests", "Total Tests"),
+          options = list(initComplete = JS(
+          "function(settings, json) {",
+          "$(this.api().table().header()).css({'background-color': '#404b5d', 'color': '#fff'});",
+          "}"),
+          pageLength = 10,
+          scrollX = TRUE,
+          columnDefs = list(list(className = "dt-center", targets = 2:7),
+                            list(className = "dt-left", targets = 1),
+                            list(width = "15%", targets = 1)))
+          )
 ```
 
