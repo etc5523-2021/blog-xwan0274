@@ -1,7 +1,7 @@
 ---
 title: "Current COVID-19 and Vaccination Status in Chile"
 description: |
-  As on 31 August 2021, over a million confirmed cases and 36,937 deaths have been recorded, however, the good news is more than 70% of the population in Chile is now fully vaccinated.
+  As on 31 August 2021, over 1,638,675 confirmed cases and 36,937 deaths have been recorded, however, the good news is over 70% of the population in Chile is now fully vaccinated.
 preview: covid.jpg
 author:
   - name: Rachel Xinrui WANG
@@ -78,6 +78,7 @@ tabledf <-sumtable %>%
 
 ```
 
+After fighting against COVID-19 for almost a year, vaccine became available in January 2021, which made significant contributions in protecting people from the virus. The table below demonstrates a monthly statistics summary regarding number of tests performed per confirmed case, rate of positive test results, number of people who are vaccinated and fully vaccinated in Chile since the vaccine was introduced.
 
 ```{r}
 tabledf1 <- sumtable %>% 
@@ -101,7 +102,11 @@ tabledf1 <- sumtable %>%
 tabledf1
 ```
 
+The positive rate dropped from 0.074 in January when there were only around 57 thousand people vaccinated, to 0.011 in August where more than 14 million people vaccinated, and over 13 million among them are fully vaccinated. Number of tests conducted to detect a positive case also increased from 13 to 89, suggests that by the end of August in 2020, only 1 person may test positive in 89 tests. The statistics above shows a very encouraging trend of the COVID-19 situation in Chile, **the spread of COVID-19 virus is getting under control while majority of the population is now fully vaccinated.**
 
+A clearer picture can be observed from the table below regarding the vaccination progress as well as the cumulative number of confirmed cases, tests conducted and deaths since January 2021. By the end of August 2021, when over 70% of the population in Chile are fully vaccinated (about 75% had their first vaccine), the increasing trend of confirmed cases slowed down. The number of new confirmed cases per month dropped from about 100,000 to slightly over 20,000, however, the number of deaths kept increasing at a relatively steady pace. 
+
+As on 31 August 2021, 1,638,675 confirmed cases was recorded in total, with 36,937 deaths, which is still concerning even though the overall COVID-19 situation in Chile is getting better with majority of the population fully vaccinated. The number of new deaths and daily confirmed cases are expected to continue decreasing while more people are getting vaccinated, and hopefully the spread of virus could be fully controlled in the near future.
 
 ```{r table}
 formattable(tabledf, 
@@ -116,9 +121,7 @@ formattable(tabledf,
                  `Fully Vaccinated %` = color_bar("limegreen")))
 ```
 
-
-
-
+Historical data of daily and cumulative confirmed cases, deaths, tests performed, vaccination administrated and number of people vaccinated from February 2020 to August 2021 is also available below for anyone who is interested.
 
 ```{r, include=FALSE}
 tabledf2 <- chile %>% 
@@ -128,22 +131,26 @@ tabledf2 <- chile %>%
          new_deaths,
          total_deaths,
          new_tests,
-         total_tests)
+         total_tests,
+         new_vaccinations,
+         total_vaccinations,
+         people_vaccinated,
+         people_fully_vaccinated)
 ```
 
 ```{r}
 datatable(tabledf2,
           colnames = c("Date", "New Cases", "Total Cases", "New Deaths", "Total Deaths",
-                       "New Tests", "Total Tests"),
+                       "New Tests", "Total Tests", "New Vaccinations", "Total Vaccinations",
+                       "People Vaccinated", "People Fully Vaccinated"),
           options = list(initComplete = JS(
           "function(settings, json) {",
           "$(this.api().table().header()).css({'background-color': '#404b5d', 'color': '#fff'});",
           "}"),
-          pageLength = 10,
+          pageLength = 5,
           scrollX = TRUE,
-          columnDefs = list(list(className = "dt-center", targets = 2:7),
-                            list(className = "dt-left", targets = 1),
-                            list(width = "15%", targets = 1)))
+          columnDefs = list(list(className = "dt-center", targets = 2:11),
+                            list(className = "dt-left", targets = 1)))
           )
 ```
 
