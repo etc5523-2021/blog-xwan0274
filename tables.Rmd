@@ -113,15 +113,15 @@ tabledf1
 
 ```{r table1}
 formattable(tabledf, 
-            align = c("l", "c", "c", "c", "r", "r"),
+            align = c("l", "c", "c", "c", "c", "c"),
             list(`Date` = formatter("span",
-                                          style = ~style(color = "grey",
-                                                         font.weight = "bold")),
+                                    style = ~style(color = "grey",
+                                                   font.weight = "bold")),
                  `Confirmed Cases` = color_tile("transparent", "tomato"),
                  `Tests Conducted` = color_tile("transparent", "steelblue3"),
                  `Deaths` = color_tile("transparent", "lightcoral"),
-                 `Vaccinated %` = color_bar("lightgreen"),
-                 `Fully Vaccinated %` = color_bar("limegreen")))
+                 `Vaccinated %` = color_tile("transparent","yellowgreen"),
+                 `Fully Vaccinated %` = color_tile("transparent","limegreen")))
 ```
 
 ### Table 3: Records of Confirmed Cases, Deaths, Tests and Vaccinations from Feb 2020 to Aug 2021 - Chile
