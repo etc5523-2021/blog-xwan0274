@@ -80,7 +80,7 @@ tabledf <-sumtable %>%
 
 After fighting against COVID-19 for almost a year, vaccine became available in January 2021, and made significant contributions in protecting people from the virus. The table below demonstrates a monthly summary regarding number of tests performed per confirmed case, rate of positive test results, number of people who are vaccinated and fully vaccinated in Chile since the vaccine was introduced.
 
-```{r}
+```{r table1}
 tabledf1 <- sumtable %>% 
   select(date,
          tests_per_case,
@@ -99,7 +99,7 @@ tabledf1 <- sumtable %>%
              people_vaccinated = html("Vaccinated"),
              people_fully_vaccinated = html("Fully Vaccinated"))
 
-tabledf1
+tabledf1 
 ```
 
 The positive rate dropped from 0.074 in January when there were only around 57 thousand people vaccinated, to 0.011 in August where more than 14 million people vaccinated, and over 13 million among them are fully vaccinated. Number of tests conducted to detect a positive case also increased from 13 to 89, suggests that by the end of August in 2020, only 1 person may test positive in 89 tests. The statistics above shows a very encouraging trend of the COVID-19 situation in Chile, **the spread of COVID-19 virus is getting under control while majority of the population is now fully vaccinated.**
@@ -108,7 +108,7 @@ A clearer picture can be observed from the table below regarding the vaccination
 
 As on 31 August 2021, 1,638,675 confirmed cases have been recorded in total, with 36,937 deaths, these figures are still concerning even though the overall COVID-19 situation in Chile is getting better with majority of the population fully vaccinated. The number of new deaths and daily confirmed cases are expected to continue decreasing while more people are getting vaccinated, and hopefully the spread of virus could be fully controlled in the near future.
 
-```{r table}
+```{r table2}
 formattable(tabledf, 
             align = c("l", "c", "c", "c", "r", "r"),
             list(`Date` = formatter("span",
@@ -138,7 +138,7 @@ tabledf2 <- chile %>%
          people_fully_vaccinated)
 ```
 
-```{r}
+```{r table3}
 datatable(tabledf2,
           colnames = c("Date", "New Cases", "Total Cases", "New Deaths", "Total Deaths",
                        "New Tests", "Total Tests", "New Vaccinations", "Total Vaccinations",

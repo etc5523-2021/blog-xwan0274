@@ -1,8 +1,7 @@
 ---
-title: "Welcome to COVID-19 in Chile"
+title: "Welcome to A Study of Global COVID-19 Situation"
 description: |
-  Welcome to our new blog, COVID-19 in Chile. We hope you enjoy 
-  reading what we have to say!
+  Welcome to A Study of Global COVID-19 Situation, we hope you enjoy the tables, plots and posts here!
 author:
   - name: Rachel Xinrui WANG 
     affiliation: MBAt - Monash Univeristy
@@ -18,8 +17,10 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 
-COVID-19 in Chile aims to provide tables, plots and related analysis regarding the COVID-19 situation in Chile between Feb 2020 to Aug 2021.
+A Study of Global COVID-19 Situation aims to provide tables, plots and related analysis regarding the COVID-19 situation and vaccination status in multiple countries around the world.
 
-All tables, plots and data description can be found in posts and/or related sections on navigation bar.
+Tables, plots and data description can be found in posts and/or related sections on navigation bar.
 
-Dataset used for all analysis was retrieved from [Our World in Data](https://ourworldindata.org/coronavirus/country/chile) on 1 September 2021, data contained is updated until 31 August 2021.
+Dataset used for creating the tables, plots and posts was retrieved from [Our World in Data](https://ourworldindata.org/coronavirus/country/chile) on 1 September 2021, data contained is updated from February 2020 to 31 August 2021.
+
+Detailed data description and source citation can be found in [Data Description](https://etc5523-2021.github.io/blog-xwan0274/posts/2021-09-01-data-description/).

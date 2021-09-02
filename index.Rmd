@@ -1,5 +1,5 @@
 ---
-title: "COVID-19 in Chile"
+title: "A Study of Global COVID-19 Situation"
 site: distill::distill_website
 listing: posts
 ---

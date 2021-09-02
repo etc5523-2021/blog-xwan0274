@@ -16,7 +16,7 @@ knitr::opts_chunk$set(echo = FALSE)
 ```
 
 
-The dataset used for all tables, plots and analysis is retrieved from [Our World in Data](https://ourworldindata.org/coronavirus/country/chile) on **1 September 2021**, with all data up to date **from 23 February 2020 to 31 August 2021**. This dataset is publicly available and completely open access under the Creative Commons BY license (Ritchie et al., 2020), and is allowed to be used for analysis purpose of this blog.
+The dataset used for tables, plots and analysis is retrieved from [Our World in Data](https://ourworldindata.org/coronavirus/country/chile) on **1 September 2021**, with all data up to date **from 23 February 2020 to 31 August 2021**. This dataset is publicly available and completely open access under the Creative Commons BY license (Ritchie et al., 2020), and is allowed to be used for analysis purpose of this blog.
 
 ```{r data, include=FALSE}
 library(tidyverse)
@@ -24,11 +24,11 @@ df <- read_csv("owid-covid-data.csv")
 
 ```
 
-The original dataset includes data from `r length(unique(df$location))` countries, contains `r ncol(df)` columns and `r nrow(df)` observations. This blog only focus on the COVID-19 situation in Chile, and the areas of interests are only related to confirmed cases, number of tests conducted, number of death and vaccinations performed. 
-
 ### Data Cleaning
 
-Therefore, the dataset has been filtered and selected with only records associated with Chile and relevant variables, stored in a tidy format for analysis purpose of this report.
+The original dataset includes data from `r length(unique(df$location))` countries, contains `r ncol(df)` columns and `r nrow(df)` observations. This blog only focus on the COVID-19 situation in selected countries, and the areas of interests are only related to confirmed cases, number of tests conducted, number of death and vaccinations performed. 
+
+Therefore, the dataset has been filtered and selected with only records associated with selected countries and relevant variables, stored in a tidy format for analysis purpose of this report.
 
 ```{r chile, include=FALSE}
 chile <- df %>% 
