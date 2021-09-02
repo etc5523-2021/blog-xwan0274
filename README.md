@@ -1,7 +1,7 @@
 # My Blog
 
 This is the blog of Xinrui WANG.
-The URL of this blog is [FILL].
+The URL of this blog is https://etc5523-2021.github.io/blog-xwan0274/.
 
 ## Blog Post 1
 
