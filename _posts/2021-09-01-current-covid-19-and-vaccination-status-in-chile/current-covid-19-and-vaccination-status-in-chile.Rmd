@@ -2,6 +2,9 @@
 title: "Current COVID-19 and Vaccination Status in Chile"
 description: |
   As on 31 August 2021, 1,638,675 confirmed cases and 36,937 deaths have been recorded, however, the good news is over 70% of the population in Chile is now fully vaccinated. Data from Our World in Data, retrieved on 1 Sep 2021.
+categories:
+  - Chile
+  - Cases and Vaccination
 preview: covid.jpg
 author:
   - name: Rachel Xinrui WANG

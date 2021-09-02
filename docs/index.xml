@@ -1,0 +1,42 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss xmlns:atom="http://www.w3.org/2005/Atom" xmlns:media="http://search.yahoo.com/mrss/" xmlns:content="http://purl.org/rss/1.0/modules/content/" xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:distill="https://distill.pub/journal/" version="2.0">
+  <channel>
+    <title>A Study of Global COVID-19 Situation</title>
+    <link>https://etc5523-2021.github.io/blog-xwan0274/</link>
+    <atom:link href="https://etc5523-2021.github.io/blog-xwan0274/index.xml" rel="self" type="application/rss+xml"/>
+    <description>Analysis, tables and plots regarding global COVID-19 and vaccination status in 2021
+</description>
+    <generator>Distill</generator>
+    <lastBuildDate>Wed, 01 Sep 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>Current COVID-19 and Vaccination Status in Chile</title>
+      <dc:creator>Rachel Xinrui WANG</dc:creator>
+      <link>https://etc5523-2021.github.io/blog-xwan0274/posts/2021-09-01-current-covid-19-and-vaccination-status-in-chile</link>
+      <description>As on 31 August 2021, 1,638,675 confirmed cases and 36,937 deaths have been recorded, however, the good news is over 70% of the population in Chile is now fully vaccinated. Data from Our World in Data, retrieved on 1 Sep 2021.</description>
+      <category>Chile</category>
+      <category>Cases and Vaccination</category>
+      <guid>https://etc5523-2021.github.io/blog-xwan0274/posts/2021-09-01-current-covid-19-and-vaccination-status-in-chile</guid>
+      <pubDate>Wed, 01 Sep 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://etc5523-2021.github.io/blog-xwan0274/posts/2021-09-01-current-covid-19-and-vaccination-status-in-chile/covid.jpg" medium="image" type="image/jpeg"/>
+    </item>
+    <item>
+      <title>Data Description</title>
+      <dc:creator>Rachel Xinrui WANG</dc:creator>
+      <link>https://etc5523-2021.github.io/blog-xwan0274/posts/2021-09-01-data-description</link>
+      <description>The dataset used in this blog is retrieved from Our World in Data on 1 Sep 2021.</description>
+      <category>Data Description</category>
+      <category>Sources</category>
+      <guid>https://etc5523-2021.github.io/blog-xwan0274/posts/2021-09-01-data-description</guid>
+      <pubDate>Wed, 01 Sep 2021 00:00:00 +0000</pubDate>
+    </item>
+    <item>
+      <title>Welcome to A Study of Global COVID-19 Situation</title>
+      <dc:creator>Rachel Xinrui WANG</dc:creator>
+      <link>https://etc5523-2021.github.io/blog-xwan0274/posts/welcome</link>
+      <description>Welcome to A Study of Global COVID-19 Situation, we hope you enjoy the tables, plots and posts here!</description>
+      <category>Welcome</category>
+      <guid>https://etc5523-2021.github.io/blog-xwan0274/posts/welcome</guid>
+      <pubDate>Tue, 31 Aug 2021 00:00:00 +0000</pubDate>
+    </item>
+  </channel>
+</rss>

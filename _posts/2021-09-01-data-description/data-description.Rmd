@@ -5,6 +5,9 @@ description: |
 author:
   - name: Rachel Xinrui WANG
 date: 09-01-2021
+categories:
+  - Data Description
+  - Sources
 output:
   distill::distill_article:
     self_contained: false

@@ -14,6 +14,16 @@ navbar:
     - text: "Tables"
       href: tables.html
   source_url: https://github.com/etc5523-2021/blog-xwan0274
+base_url: https://etc5523-2021.github.io/blog-xwan0274/
+collections:
+  posts:
+    disqus: A Study of Global COVID-19 Situation
+    share: [twitter, linkedin]
+    subscribe: _subscribe.html
+    categories_metadata: false
+    authors_metadata: false
 theme: theme.css
+rss: 
+  full_content: true
 output: 
   distill::distill_article
