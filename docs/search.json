@@ -5,15 +5,15 @@
       "title": "About this blog",
       "description": "This blog contains tables, plots and analysis of COVID-19 situations in Chile from February 2020 to August 2021, dataset retrieved on 1 Sep 2021 from Our World in Data.",
       "author": [],
-      "contents": "\r\nThis blog contains information and analysis of COVID-19 situations in Chile from February 2020 to August 2021, including daily and cumulative confirmed cases, daily and total tests conducted, and demographics of local population etc.\r\nData description, tables, plots, analysis and data stories can all be found in posts as well as related sections in this blog. Dataset used in this blog was retrieved on 1 September 2021, all data was updated until 31 August 2021.\r\nOwnership of the data is held by Our World in Data, and this blog is owned by the author specified.\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-09-02T14:51:04+10:00"
+      "contents": "\r\nThis blog contains information and analysis of COVID-19 situations in Chile from February 2020 to August 2021, including daily and cumulative confirmed cases, daily and total tests conducted, and vaccination status of the local population etc.\r\nData description, tables, plots, analysis and data stories can all be found in posts or related sections on navigation bar in this blog. Dataset used in this blog was retrieved on 1 September 2021, all data was updated until 31 August 2021.\r\nOwnership of the data is held by Our World in Data, and this blog is owned by the author specified.\r\n\r\n\r\n\r\n",
+      "last_modified": "2021-09-02T15:06:24+10:00"
     },
     {
       "path": "index.html",
       "title": "COVID-19 in Chile",
       "author": [],
       "contents": "\r\n\r\n\r\n\r\n",
-      "last_modified": "2021-09-02T14:41:42+10:00"
+      "last_modified": "2021-09-02T15:18:54+10:00"
     },
     {
       "path": "tables.html",
