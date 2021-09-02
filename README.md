@@ -1,16 +1,15 @@
 # My Blog
 
-
-This is the blog of [Xinrui WANG].
+This is the blog of Xinrui WANG.
 The URL of this blog is [FILL].
 
 ## Blog Post 1
 
 This assessment is due Fri Sep 3 2021 11.55PM AEST.
 
-My selected country is [Chile].
+My selected country is Chile.
 
-The relevant blog post for this assessment is in [FILL].html
+The relevant blog posts for this assessment are in data-description.html and current-covid-19-and-vaccination-status-in-chile.html.
 
 - [ ] Selected a country
 - [ ] Website with R markdown 

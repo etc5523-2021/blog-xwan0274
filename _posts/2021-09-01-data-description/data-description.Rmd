@@ -1,0 +1,86 @@
+---
+title: "Data Description"
+description: |
+  The dataset used in this blog is retrieved from Our World in Data on 1 Sep 2021.
+author:
+  - name: Rachel Xinrui WANG
+date: 09-01-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+
+The dataset used for all tables, plots and analysis is retrieved from [Our World in Data](https://ourworldindata.org/coronavirus/country/chile) on **1 September 2021**, with all data up to date **from 23 February 2020 to 31 August 2021**. This dataset is publicly available and completely open access under the Creative Commons BY license (Ritchie et al., 2020), and is allowed to be used for analysis purpose of this blog.
+
+```{r data, include=FALSE}
+library(tidyverse)
+df <- read_csv("owid-covid-data.csv")
+
+```
+
+The original dataset includes data from `r length(unique(df$location))` countries, contains `r ncol(df)` columns and `r nrow(df)` observations. This blog only focus on the COVID-19 situation in Chile, and the areas of interests are only related to confirmed cases, number of tests conducted, number of death and vaccinations performed. 
+
+### Data Cleaning
+
+Therefore, the dataset has been filtered and selected with only records associated with Chile and relevant variables, stored in a tidy format for analysis purpose of this report.
+
+```{r chile, include=FALSE}
+chile <- df %>% 
+  filter(location == "Chile") %>% 
+  select(iso_code,
+         location,
+         date,
+         total_cases,
+         new_cases,
+         total_deaths,
+         new_deaths,
+         total_tests,
+         new_tests,
+         positive_rate,
+         tests_per_case,
+         total_vaccinations,
+         new_vaccinations,
+         people_vaccinated,
+         people_vaccinated_per_hundred,
+         people_fully_vaccinated,
+         people_fully_vaccinated_per_hundred)
+```
+
+```{r savedf, include=FALSE}
+write.csv(x = chile, file = "chile.csv")
+```
+
+The filtered dataset contains `r ncol(chile)` variables and `r nrow(chile)` observations from Feb 2020 to Aug 2021, the description of the variables included are listed in the following section.
+
+### Variables Included
+
+|Variable         |Data Type |Description  |
+|:----------------|:---------|:------------|
+|iso_code                            |character |Country code |
+|location                            |character |Country name |
+|date                                |date      |Date         |
+|total_cases                         |double    |Total confirmed cases - cumulative |
+|new_cases                           |double    |New confirmed cases of the day|
+|total_deaths                        |double    |Total death - cumulative |
+|new_deaths                          |double    |New death of the day |
+|total_tests                         |double    |Total tests conducted - cumulative |
+|new_tests                           |double    |New tests conducted of the day |
+|positive_rate                       |double    |Positive test results rate of the day|
+|tests_per_case                      |double    |Number of tests conducted for 1 confirmed case - daily|
+|total_vaccinations                  |double    |Total vaccinations performed - cumulative |
+|new_vaccinations                    |double    |New vaccinations performed of the day |
+|people_vaccinated                   |double    |Total number of people vaccinated - cumulative |
+|people_vaccinated_per_hundred       |double    |Vaccinated rate per hundred people |
+|people_fully_vaccinated             |double    |Total number of people fully vaccinated - cumulative |
+|people_fully_vaccinated_per_hundred |double    |Fully vaccinated rate per hundred people |
+
+
+### Data Source Reference
+
+Hannah Ritchie, Edouard Mathieu, Lucas Rodés-Guirao, Cameron Appel, Charlie Giattino, Esteban Ortiz-Ospina, Joe Hasell, Bobbie Macdonald, Diana Beltekian and Max Roser (2020) - "Coronavirus Pandemic (COVID-19)". Published online at OurWorldInData.org. Retrieved from: 'https://ourworldindata.org/coronavirus' [Online Resource]

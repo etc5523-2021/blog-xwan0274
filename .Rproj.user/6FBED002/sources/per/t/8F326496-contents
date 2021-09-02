@@ -1,0 +1,157 @@
+---
+title: "Tables - COVID-19 in Chile"
+description: |
+ This blog contains a list of tables that relevant to posts in this blog, all tables are created based on the dataset retrieved from Our World in Data on 1 Sep 2021.
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+```
+
+```{r library, include=FALSE}
+library(tidyverse)
+library(formattable)
+library(DT)
+library(gt)
+```
+
+```{r df, include = FALSE}
+df <- read_csv("owid-covid-data.csv") %>% 
+  filter(location == "Chile") %>% 
+  select(iso_code,
+         location,
+         date,
+         total_cases,
+         new_cases,
+         total_deaths,
+         new_deaths,
+         total_tests,
+         new_tests,
+         positive_rate,
+         tests_per_case,
+         total_vaccinations,
+         new_vaccinations,
+         people_vaccinated,
+         people_vaccinated_per_hundred,
+         people_fully_vaccinated,
+         people_fully_vaccinated_per_hundred)
+
+cases <- df %>% 
+  filter(date == "2021-08-31") %>% 
+  select(iso_code,
+         location,
+         total_cases,
+         new_cases,
+         total_deaths,
+         new_deaths)
+
+details <- df %>% 
+  filter(date == "2021-08-29") %>% 
+  select(-c(date, 
+            total_cases,
+            new_cases,
+            total_deaths,
+            new_deaths))
+
+updates <- cases %>% 
+  left_join(details,
+            by = c("iso_code", "location")) %>% 
+  mutate(date = "End of Aug")
+
+monthly <- df %>% 
+  mutate(date = as.character(date)) %>% 
+  filter(date %in% c("2021-01-31",
+                     "2021-02-28",
+                     "2021-03-31",
+                     "2021-04-30",
+                     "2021-05-31",
+                     "2021-06-30",
+                     "2021-07-31"))
+
+sumtable <- do.call("rbind", list(monthly, updates))
+
+tabledf <-sumtable %>% 
+  select(date,
+         total_cases,
+         total_tests,
+         total_deaths,
+         people_vaccinated_per_hundred,
+         people_fully_vaccinated_per_hundred) %>% 
+  rename("Date" = date,
+         "Confirmed Cases" = total_cases,
+         "Tests Conducted" = total_tests,
+         "Deaths" = total_deaths,
+          "Vaccinated %" = people_vaccinated_per_hundred,
+          "Fully Vaccinated %" = people_fully_vaccinated_per_hundred)
+```
+
+### Table 1: Summary of Positive Rate and Vaccination Status by the End of August in 2021
+
+```{r}
+tabledf1 <- sumtable %>% 
+  select(date,
+         tests_per_case,
+         positive_rate,
+         people_vaccinated,
+         people_fully_vaccinated) %>% 
+  gt() %>% 
+  tab_header(title = "Positive Rate by Tests Dropped to 0.01 with Over 14 Million People Vaccinated",
+             subtitle = "Most Recent Updates Recorded in the End of August 2021") %>% 
+  cols_align(align = "center",
+             columns = 2:5) %>% 
+  tab_source_note(md("Source: 2021 *Our World in Data*")) %>% 
+  cols_label(date = html("Date"),
+             tests_per_case = html("Tests per Case"),
+             positive_rate = html("Positive Rate"),
+             people_vaccinated = html("Vaccinated"),
+             people_fully_vaccinated = html("Fully Vaccinated"))
+
+tabledf1
+```
+
+### Table 2: Monthly Confirmed Cases, Deaths, Tests and Vaccination Status in 2021
+
+```{r table1}
+formattable(tabledf, 
+            align = c("l", "c", "c", "c", "r", "r"),
+            list(`Date` = formatter("span",
+                                          style = ~style(color = "grey",
+                                                         font.weight = "bold")),
+                 `Confirmed Cases` = color_tile("transparent", "tomato"),
+                 `Tests Conducted` = color_tile("transparent", "steelblue3"),
+                 `Deaths` = color_tile("transparent", "lightcoral"),
+                 `Vaccinated %` = color_bar("lightgreen"),
+                 `Fully Vaccinated %` = color_bar("limegreen")))
+```
+
+### Table 3: Records of Confirmed Cases, Deaths, Tests and Vaccinations from Feb 2020 to Aug 2021
+
+```{r}
+tabledf2 <- df %>% 
+  select(date,
+         new_cases,
+         total_cases,
+         new_deaths,
+         total_deaths,
+         new_tests,
+         total_tests,
+         new_vaccinations,
+         total_vaccinations,
+         people_vaccinated,
+         people_fully_vaccinated)
+
+datatable(tabledf2,
+          colnames = c("Date", "New Cases", "Total Cases", "New Deaths", "Total Deaths",
+                       "New Tests", "Total Tests", "New Vaccinations", "Total Vaccinations",
+                       "People Vaccinated", "People Fully Vaccinated"),
+          options = list(initComplete = JS(
+          "function(settings, json) {",
+          "$(this.api().table().header()).css({'background-color': '#404b5d', 'color': '#fff'});",
+          "}"),
+          pageLength = 5,
+          scrollX = TRUE,
+          columnDefs = list(list(className = "dt-center", targets = 2:11),
+                            list(className = "dt-left", targets = 1)))
+          )
+```
+

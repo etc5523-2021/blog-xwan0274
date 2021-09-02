@@ -1,0 +1,24 @@
+---
+title: "Data Description"
+description: |
+  Data description
+  
+  Citing the data sources
+  
+  A short data story linked to one of the tables presented
+  
+author:
+  - name: Rachel Xinrui WANG 
+    url: https://github.com/etc5523-2021/blog-xwan0274
+    affiliation: MBAt - Monash Univeristy
+    affiliation_url: https://www.monash.edu/study/courses/find-a-course/2022/business-analytics-b6022
+date: 09-01-2021
+output:
+  distill::distill_article:
+    self_contained: false
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = FALSE)
+
+```
