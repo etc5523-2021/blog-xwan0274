@@ -4,6 +4,7 @@ description: |
   The dataset used in this blog is retrieved from Our World in Data on 1 Sep 2021.
 author:
   - name: Rachel Xinrui WANG
+    affiliation: MBAt - Monash Univeristy
 date: 09-01-2021
 categories:
   - Data Description
