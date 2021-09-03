@@ -36,95 +36,102 @@ df <- read_csv("owid-covid-data.csv") %>%
          people_fully_vaccinated,
          people_fully_vaccinated_per_hundred)
 
-cases <- df %>% 
-  filter(date == "2021-08-31") %>% 
-  select(iso_code,
-         location,
-         total_cases,
+monthly <- df %>%
+  separate(col = date,
+           into = c("year", "month", "day"),
+           sep = "-",
+           remove = TRUE) %>% 
+  filter(year == 2021) %>% 
+  select(-c(year, day)) %>% 
+  group_by(month) %>% 
+  summarise(new_cases = sum(new_cases, na.rm = TRUE),
+            total_cases = max(total_cases, na.rm = TRUE),
+            new_deaths = sum(new_deaths, na.rm = TRUE),
+            total_deaths = max(total_deaths, na.rm = TRUE),
+            new_tests = sum(new_tests, na.rm = TRUE),
+            total_tests = max(total_tests, na.rm = TRUE),
+            avg_positive = mean(positive_rate, na.rm = TRUE)*100,
+            avg_tests = mean(tests_per_case, na.rm = TRUE),
+            new_vac = sum(new_vaccinations, na.rm = TRUE),
+            total_vac = max(total_vaccinations, na.rm = TRUE),
+            pp_vac = max(people_vaccinated, na.rm = TRUE),
+            vac_rate = max(people_vaccinated_per_hundred, na.rm = TRUE),
+            pp_fullvac = max(people_fully_vaccinated, na.rm = TRUE),
+            fullvac_rate = max(people_fully_vaccinated_per_hundred, na.rm = TRUE)) %>% 
+  ungroup()
+
+monthly$month[which(monthly$month == "01")] = "Jan"
+monthly$month[which(monthly$month == "02")] = "Feb"
+monthly$month[which(monthly$month == "03")] = "Mar"
+monthly$month[which(monthly$month == "04")] = "Apr"
+monthly$month[which(monthly$month == "05")] = "May"
+monthly$month[which(monthly$month == "06")] = "Jun"
+monthly$month[which(monthly$month == "07")] = "Jul"
+monthly$month[which(monthly$month == "08")] = "Aug"
+
+
+tabledf <-monthly %>% 
+  select(month,
          new_cases,
-         total_deaths,
-         new_deaths)
-
-details <- df %>% 
-  filter(date == "2021-08-29") %>% 
-  select(-c(date, 
-            total_cases,
-            new_cases,
-            total_deaths,
-            new_deaths))
-
-updates <- cases %>% 
-  left_join(details,
-            by = c("iso_code", "location")) %>% 
-  mutate(date = "End of Aug")
-
-monthly <- df %>% 
-  mutate(date = as.character(date)) %>% 
-  filter(date %in% c("2021-01-31",
-                     "2021-02-28",
-                     "2021-03-31",
-                     "2021-04-30",
-                     "2021-05-31",
-                     "2021-06-30",
-                     "2021-07-31"))
-
-sumtable <- do.call("rbind", list(monthly, updates))
-
-tabledf <-sumtable %>% 
-  select(date,
          total_cases,
-         total_tests,
+         new_deaths,
          total_deaths,
-         people_vaccinated_per_hundred,
-         people_fully_vaccinated_per_hundred) %>% 
-  rename("Date" = date,
-         "Confirmed Cases" = total_cases,
-         "Tests Conducted" = total_tests,
-         "Deaths" = total_deaths,
-          "Vaccinated %" = people_vaccinated_per_hundred,
-          "Fully Vaccinated %" = people_fully_vaccinated_per_hundred)
+         pp_vac,
+         pp_fullvac) %>% 
+  rename("Month" = month,
+         "New Cases" = new_cases,
+         "Total Confirmed Cases" = total_cases,
+         "New Deaths" = new_deaths,
+         "Total Deaths" = total_deaths,
+         "People Vaccinated" = pp_vac,
+         "People Fully Vaccinated" = pp_fullvac)
+
 ```
 
 ### Table 1: Summary of Positive Rate and Vaccination Status by the End of August in 2021 - Chile
 
 ```{r}
-tabledf1 <- sumtable %>% 
-  select(date,
-         tests_per_case,
-         positive_rate,
-         people_vaccinated,
-         people_fully_vaccinated) %>% 
+tabledf1 <- monthly %>% 
+  select(month,
+         avg_tests,
+         avg_positive,
+         vac_rate,
+         fullvac_rate) %>% 
   gt() %>% 
-  tab_header(title = "Positive Rate by Tests Dropped to 0.01 with Over 14 Million People Vaccinated",
+  tab_header(title = "Average Positive Rate by Tests Dropped to 1.52% with Over 70% of the Population Fully Vaccinated",
              subtitle = "Most Recent Updates Recorded in the End of August 2021") %>% 
   cols_align(align = "center",
-             columns = 2:5) %>% 
+             columns = 1:5) %>% 
+  fmt_number(columns = c(avg_tests,
+                         avg_positive),
+             decimals = 2) %>% 
   tab_source_note(md("Source: 2021 *Our World in Data*")) %>% 
-  cols_label(date = html("Date"),
-             tests_per_case = html("Tests per Case"),
-             positive_rate = html("Positive Rate"),
-             people_vaccinated = html("Vaccinated"),
-             people_fully_vaccinated = html("Fully Vaccinated"))
+  cols_label(month = html("Month"),
+             avg_tests = html("Average Tests per Case"),
+             avg_positive = html("Average Positive Rate %"),
+             vac_rate = html("Vaccinated %"),
+             fullvac_rate = html("Fully Vaccinated %"))
 
-tabledf1
+tabledf1 
 ```
 
-### Table 2: Monthly Confirmed Cases, Deaths, Tests and Vaccination Status in 2021 - Chile
+### Table 2: Monthly Confirmed Cases, Deaths and Vaccination Status in 2021 - Chile
 
 ```{r table1}
 formattable(tabledf, 
-            align = c("l", "c", "c", "c", "c", "c"),
-            list(`Date` = formatter("span",
+            align = c("l", "c", "c", "c", "c", "c", "c"),
+            list(`Month` = formatter("span",
                                     style = ~style(color = "grey",
                                                    font.weight = "bold")),
-                 `Confirmed Cases` = color_tile("transparent", "tomato"),
-                 `Tests Conducted` = color_tile("transparent", "steelblue3"),
-                 `Deaths` = color_tile("transparent", "lightcoral"),
-                 `Vaccinated %` = color_tile("transparent","yellowgreen"),
-                 `Fully Vaccinated %` = color_tile("transparent","limegreen")))
+                 `New Cases` = color_tile("transparent", "tomato"),
+                 `Total Confirmed Cases` = color_tile("transparent", "steelblue3"),
+                 `New Deaths` = color_tile("transparent", "lightcoral"),
+                 `Total Deaths` = color_tile("transparent", "steelblue3"),
+                 `People Vaccinated` = color_tile("transparent", "yellowgreen"),
+                 `People Fully Vaccinated` = color_tile("transparent", "limegreen")))
 ```
 
-### Table 3: Records of Confirmed Cases, Deaths, Tests and Vaccinations from Feb 2020 to Aug 2021 - Chile
+### Table 3: Records of Confirmed Cases, Deaths, Tests and Vaccination Status from Feb 2020 to Aug 2021 - Chile
 
 ```{r}
 tabledf2 <- df %>% 
@@ -138,19 +145,31 @@ tabledf2 <- df %>%
          new_vaccinations,
          total_vaccinations,
          people_vaccinated,
-         people_fully_vaccinated)
+         people_vaccinated_per_hundred,
+         people_fully_vaccinated,
+         people_fully_vaccinated_per_hundred)
 
 datatable(tabledf2,
-          colnames = c("Date", "New Cases", "Total Cases", "New Deaths", "Total Deaths",
-                       "New Tests", "Total Tests", "New Vaccinations", "Total Vaccinations",
-                       "People Vaccinated", "People Fully Vaccinated"),
+          colnames = c("Date", 
+                       "New Cases", 
+                       "Total Cases", 
+                       "New Deaths",
+                       "Total Deaths",
+                       "New Tests", 
+                       "Total Tests", 
+                       "New Vaccinations", 
+                       "Total Vaccinations",
+                       "People Vaccinated", 
+                       "Vaccinated Rate", 
+                       "People Fully Vaccinated",
+                       "Fully Vaccinated Rate"),
           options = list(initComplete = JS(
           "function(settings, json) {",
           "$(this.api().table().header()).css({'background-color': '#404b5d', 'color': '#fff'});",
           "}"),
-          pageLength = 5,
+          pageLength = 7,
           scrollX = TRUE,
-          columnDefs = list(list(className = "dt-center", targets = 2:11),
+          columnDefs = list(list(className = "dt-center", targets = 2:13),
                             list(className = "dt-left", targets = 1)))
           )
 ```
