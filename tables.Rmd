@@ -108,9 +108,9 @@ tabledf1 <- monthly %>%
   tab_source_note(md("Source: 2021 *Our World in Data*")) %>% 
   cols_label(month = html("Month"),
              avg_tests = html("Average Tests per Case"),
-             avg_positive = html("Average Positive Rate %"),
-             vac_rate = html("Vaccinated %"),
-             fullvac_rate = html("Fully Vaccinated %"))
+             avg_positive = html("Average Positive Rate<br>(%)"),
+             vac_rate = html("Vaccinated<br>(%)"),
+             fullvac_rate = html("Fully Vaccinated<br>(%)"))
 
 tabledf1 
 ```

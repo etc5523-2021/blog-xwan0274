@@ -104,11 +104,10 @@ tabledf1 <- monthly %>%
   tab_source_note(md("Source: 2021 *Our World in Data*")) %>% 
   cols_label(month = html("Month"),
              avg_tests = html("Average Tests per Case"),
-             avg_positive = html("Average Positive Rate %"),
-             vac_rate = html("Vaccinated %"),
-             fullvac_rate = html("Fully Vaccinated %"))
-
-tabledf1 
+             avg_positive = html("Average Positive Rate<br>(%)"),
+             vac_rate = html("Vaccinated<br>(%)"),
+             fullvac_rate = html("Fully Vaccinated<br>(%)"))
+tabledf1
 ```
 
 The average positive rate dropped from 7.52% in January when only 0.3% of the population is vaccinated, to 1.52% in August where nearly 75% of the population vaccinated, and over 70% are fully vaccinated. Average number of tests conducted to detect a positive case also increased from 13.34 to 68.26 per month, suggests that by the end of August in 2021, only 1 person may test positive in 69 tests. The statistics above shows a very encouraging trend of the COVID-19 situation in Chile, **the spread of COVID-19 virus is getting under control while majority of the population is now fully vaccinated.**
