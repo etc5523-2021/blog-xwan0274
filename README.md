@@ -25,7 +25,7 @@ The relevant blog posts for this assessment are in data-description.html and cur
 
 This assessment is due Fri Sep 17 2021 11.55PM AEST.
 
-My selected country is [FILL].
+My selected country is [Canada].
 
 The relevant blog post for this assessment is in [FILL].html
 

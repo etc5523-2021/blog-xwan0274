@@ -7,7 +7,18 @@
     <description>Analysis, tables and plots regarding global COVID-19 and vaccination status in 2021
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Wed, 01 Sep 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sun, 12 Sep 2021 00:00:00 +0000</lastBuildDate>
+    <item>
+      <title>COVID-19 in Canada</title>
+      <dc:creator>Rachel Xinrui WANG</dc:creator>
+      <link>https://etc5523-2021.github.io/blog-xwan0274/posts/2021-09-12-covid-19-in-canada</link>
+      <description>A short description of the post.</description>
+      <category>Canada</category>
+      <category>Cases and Vaccination</category>
+      <guid>https://etc5523-2021.github.io/blog-xwan0274/posts/2021-09-12-covid-19-in-canada</guid>
+      <pubDate>Sun, 12 Sep 2021 00:00:00 +0000</pubDate>
+      <media:content url="https://etc5523-2021.github.io/blog-xwan0274/posts/2021-09-12-covid-19-in-canada/canada.jpg" medium="image" type="image/jpeg"/>
+    </item>
     <item>
       <title>Current COVID-19 and Vaccination Status in Chile</title>
       <dc:creator>Rachel Xinrui WANG</dc:creator>
