@@ -7,16 +7,16 @@
     <description>Analysis, tables and plots regarding global COVID-19 and vaccination status in 2021
 </description>
     <generator>Distill</generator>
-    <lastBuildDate>Sun, 12 Sep 2021 00:00:00 +0000</lastBuildDate>
+    <lastBuildDate>Sat, 11 Sep 2021 00:00:00 +0000</lastBuildDate>
     <item>
       <title>COVID-19 in Canada</title>
       <dc:creator>Rachel Xinrui WANG</dc:creator>
       <link>https://etc5523-2021.github.io/blog-xwan0274/posts/2021-09-12-covid-19-in-canada</link>
-      <description>A short description of the post.</description>
+      <description>Total of 1,507,092 confirmed cases and 26,989 deaths are reported, with over 65% of the population fully vaccinated in Canada on 31 Aug 2021. Is vaccination effectively preventing the spread of virus reamins questionable. Data from Our World in Data, retrieved on 1 Sep 2021.</description>
       <category>Canada</category>
       <category>Cases and Vaccination</category>
       <guid>https://etc5523-2021.github.io/blog-xwan0274/posts/2021-09-12-covid-19-in-canada</guid>
-      <pubDate>Sun, 12 Sep 2021 00:00:00 +0000</pubDate>
+      <pubDate>Sat, 11 Sep 2021 00:00:00 +0000</pubDate>
       <media:content url="https://etc5523-2021.github.io/blog-xwan0274/posts/2021-09-12-covid-19-in-canada/canada.jpg" medium="image" type="image/jpeg"/>
     </item>
     <item>

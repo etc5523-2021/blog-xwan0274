@@ -1,7 +1,7 @@
 ---
 title: "COVID-19 in Canada"
 description: |
-  A short description of the post.
+  Total of 1,507,092 confirmed cases and 26,989 deaths are reported, with over 65% of the population fully vaccinated in Canada on 31 Aug 2021. Is vaccination effectively preventing the spread of virus reamins questionable. Data from Our World in Data, retrieved on 1 Sep 2021.
 categories:
   - Canada
   - Cases and Vaccination
@@ -18,3 +18,202 @@ output:
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = FALSE)
 ```
+
+```{r library, include=FALSE}
+library(tidyverse)
+library(plotly)
+```
+
+```{r data, include=FALSE}
+df <- read_csv("owid-covid-data.csv") %>% 
+  filter(location == "Canada") %>% 
+  select(iso_code,
+         location,
+         date,
+         total_cases,
+         new_cases,
+         total_deaths,
+         new_deaths,
+         total_tests,
+         new_tests,
+         positive_rate,
+         tests_per_case,
+         total_vaccinations,
+         new_vaccinations,
+         people_vaccinated,
+         people_vaccinated_per_hundred,
+         people_fully_vaccinated,
+         people_fully_vaccinated_per_hundred)
+```
+
+```{r, include=FALSE}
+vaccine <- df %>% 
+  mutate(vaccine = case_when(is.na(total_vaccinations)~"No",
+                             !is.na(total_vaccinations)~"Yes"),
+         date = as.Date(date, format="%d/%m/%Y"),
+         vaccine_rate = cut(people_vaccinated_per_hundred,
+                            breaks = c(0,50,80))) 
+
+levels(vaccine$vaccine_rate) <- c(levels(vaccine$vaccine_rate),
+                                  "no vaccine")
+vaccine$vaccine_rate[is.na(vaccine$vaccine_rate)] <- "no vaccine"
+
+levels(vaccine$vaccine_rate) <- c(levels(vaccine$vaccine_rate),
+                                  "0-50%")
+vaccine$vaccine_rate[which(vaccine$vaccine_rate == "(0,50]")] = "0-50%"
+
+levels(vaccine$vaccine_rate) <- c(levels(vaccine$vaccine_rate),
+                                  "over 50%")
+vaccine$vaccine_rate[which(vaccine$vaccine_rate == "(50,80]")] = "over 50%"
+```
+
+
+### Current COVID-19 situation in Canada
+
+```{r}
+plot1 <- vaccine %>% 
+  select(date,
+         new_cases,
+         new_deaths) %>% 
+  rename("new cases" = new_cases,
+         "new deaths" = new_deaths) %>% 
+  pivot_longer(-date,
+               names_to = "type",
+               values_to = "number") %>% 
+  ggplot(aes(x = date,
+             y = number,
+             color = type)) +
+  geom_point() +
+  theme_bw() +
+  scale_color_brewer(palette = "Dark2") +
+  labs(x = "Date",
+       y = "",
+       title = "Daily new cases and deaths since Jan 2020",
+       color = "Type") +
+  scale_x_date(date_breaks = "4 month") +
+  scale_y_continuous(labels = scales::comma) +
+  theme(axis.text.x = element_text(size = 9),
+        axis.text.y = element_text(size = 11),
+        legend.text = element_text(size = 11))
+
+ggplotly(plot1) %>%
+  config(displayModeBar = FALSE)
+```
+
+
+
+
+
+
+
+### Is vaccination helping slow down the sperad of COVID-19?
+
+
+```{r lineplotly, include=FALSE}
+plot2 <- vaccine %>% 
+  select(date,
+         positive_rate,
+         vaccine,
+         vaccine_rate) %>%
+  ggplot(aes(x = date,
+             y = positive_rate,
+             color = vaccine)) +
+  geom_line(size = 0.8) +
+  theme_bw() +
+  labs(x = "Date",
+       y = "",
+       title = "Peak of positve rate drops after vaccine is available",
+       color = "Vaccine") +
+  scale_x_date(date_breaks = "4 month") +
+  scale_y_continuous(labels = scales::label_percent(scale = 100)) +
+  scale_color_brewer(palette = "Dark2") +
+  theme(axis.text.x = element_text(size = 9),
+        axis.text.y = element_text(size = 11),
+        legend.text = element_text(size = 11))
+
+fig2 <- ggplotly(plot2) %>%
+  config(displayModeBar = FALSE)
+```
+
+
+```{r}
+plot3 <- vaccine %>% 
+  select(date,
+         positive_rate,
+         vaccine,
+         vaccine_rate) %>%
+  ggplot(aes(x = date,
+             y = positive_rate,
+             color = vaccine)) +
+  geom_boxplot() +
+  theme_bw() +
+  labs(x = "Date",
+       y = "",
+       title = "Peak of positve rate drops after vaccine is available",
+       color = "Vaccine") +
+  scale_x_date(date_breaks = "4 month") +
+  scale_y_continuous(labels = scales::label_percent(scale = 100)) +
+  scale_color_brewer(palette = "Dark2") +
+  theme(axis.text.x = element_text(size = 9),
+        axis.text.y = element_text(size = 11),
+        legend.text = element_text(size = 11)) +
+  coord_flip()
+
+plot3
+```
+
+```{r boxplotly, include=FALSE}
+plot3 <- vaccine %>% 
+  filter(vaccine == "No") %>% 
+  plot_ly(y = ~positive_rate,
+          type = "box",
+          name = "No")
+
+novac <- vaccine %>% 
+  filter(vaccine == "Yes")
+
+plot3 <- plot3 %>% 
+  add_trace(data= novac,
+            y = ~positive_rate,
+            type = "box",
+            name = "Yes")
+
+```
+
+```{r, fig.width=10}
+fig <- subplot(fig2, plot3, nrows = 2) %>% 
+  layout(title = "Whether vaccine reduce positive rate is questionable") %>%
+  config(displayModeBar = FALSE)
+fig
+```
+
+```{r}
+plot4 <- vaccine %>% 
+  select(date,
+         total_cases,
+         vaccine,
+         vaccine_rate) %>% 
+  ggplot(aes(x = date,
+           y = total_cases,
+           color = vaccine_rate)) +
+  geom_line(size = 1.5) +
+  theme_bw() +
+  labs(x = "Date",
+       y = "",
+       title = "Trend of total cases by vaccine rate",
+       color = "Vaccination Rate") +
+  scale_y_continuous(labels = scales::comma) +
+  scale_x_date(date_breaks = "4 month") +
+  scale_color_brewer(palette = "Dark2") +
+  theme(axis.text.x = element_text(size = 9),
+        axis.text.y = element_text(size = 11),
+        legend.text = element_text(size = 11))
+
+ggplotly(plot4) %>%
+  config(displayModeBar = FALSE)
+```
+
+
+
+
+
