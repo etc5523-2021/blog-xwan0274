@@ -78,7 +78,7 @@ The analysis and plots generated in this post are based on the data retrieved fr
 
 ### Current COVID-19 situation in Canada
 
-As on 31 August 2021, there are `r max(vaccine$total_cases` total cases and `r max(vaccine$total_deaths)` total deaths recorded in Canada, and `r max(vaccine$total_tests` in total have been conducted since January 2020. Vaccine is first introduced in Canada in December 2020, around 73% of the population is vaccinated with about 66% of the population fully vaccinated as recorded on 31 August 2021.
+As on 31 August 2021, there are `r max(vaccine$total_cases)` total cases and `r max(vaccine$total_deaths)` total deaths recorded in Canada, and `r max(vaccine$total_tests)` in total have been conducted since January 2020. Vaccine was first introduced in Canada in December 2020, around 73% of the population is vaccinated with about 66% of the population fully vaccinated as recorded on 31 August 2021.
 
 ```{r, fig.width=8}
 plot1 <- vaccine %>% 
@@ -98,7 +98,7 @@ plot1 <- vaccine %>%
   scale_color_brewer(palette = "Dark2") +
   labs(x = "Date",
        y = "",
-       title = "Daily new cases and deaths since Jan 2020",
+       title = "Trend of daily cases and deaths since Jan 2020",
        color = "Type") +
   scale_x_date(date_breaks = "4 month") +
   scale_y_continuous(labels = scales::comma) +
@@ -110,7 +110,11 @@ ggplotly(plot1) %>%
   config(displayModeBar = FALSE)
 ```
 
+The plot above demonstrates an overall view of daily confirmed cases and deaths reported since January 2020. It can be observed that while the confirmed cases varied dramatically over the past two years, the number of daily deaths remains relatively steady, the highest daily death recorded was `r max(vaccine$new_deaths)` on 29 April 2020. 
 
+As for the daily cases, the first wave can be easily identified from the plot, where the daily confirmed cases experienced a significant increase in March 2020, but the situation was soon under control and the daily new cases dropped below 10 in July 2020. The second wave in November 2020 exerted much higher impact on the daily cases and lasted much longer, a sharp increase can be observed from November 2020 to January 2021, the peak value of daily confirmed cases at that time was over 10,000. Although it dropped back to around 2,000 cases per day in March 2021, the number soon rocketed again back to over 10,000 in April 2021. 
+
+The attack of second wave was not over until July 2021, the daily confirmed cases fell under 800 again, however, **a increasing trend start from August 2021 can already be seen from the above plot**. Treble (2021) expressed the concern that it might be the start of the third wave, get the population vaccinated seems to be the only way to win this battle.
 
 ```{r, fig.width=8}
 rate <- vaccine %>% 
@@ -143,11 +147,10 @@ ggplotly(rate) %>%
   config(displayModeBar = FALSE)
 ```
 
-
+The bright side of the picture is that Canada is fully immunising its population at a blistering speed. The vaccine was first introduced to Canada in December 2020, **although over 50% of the population took their first dose as recorded on 1 June 2021, only 6% of the population was fully vaccinated.** A sharp increase in fully vaccinated rate occurred soon after, as on 31 August 2021, over 65% of the population in Canada is fully vaccinated, with around 73% of the population received their first dose. However, **a increasing trend in daily confirmed cases is still observed even after majority of the population are vaccinated**, that raises the concern: is vaccination really helping Canada in wining the battle against the COVID-19 pandemic?
 
 
 ### Is vaccination helping slow down the sperad of COVID-19?
-
 
 ```{r lineplotly, include=FALSE}
 plot2 <- vaccine %>% 
@@ -173,7 +176,6 @@ plot2 <- vaccine %>%
 fig2 <- ggplotly(plot2) %>%
   config(displayModeBar = FALSE)
 ```
-
 
 ```{r boxplotly, include=FALSE}
 plot3 <- vaccine %>% 
@@ -225,6 +227,9 @@ plot4 <- vaccine %>%
 ggplotly(plot4) %>%
   config(displayModeBar = FALSE)
 ```
+
+
+
 
 
 ```{r, include=FALSE}
@@ -287,9 +292,14 @@ plot5 <- vaccine %>%
         legend.text = element_text(size = 11))
 ```
 
+
+
+
 ```{r, fig.width=7}
 plot5
 ```
+
+### Appendix
 
 A summary of historical data of daily and cumulative confirmed cases, deaths, tests performed, vaccination administrated and number of people vaccinated from February 2020 to August 2021 is available below for anyone who is interested. Blank cells represent data unavailable.
 
