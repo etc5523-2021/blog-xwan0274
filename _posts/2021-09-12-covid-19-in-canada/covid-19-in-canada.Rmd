@@ -152,6 +152,8 @@ The bright side of the picture is that Canada is fully immunising its population
 
 ### Is vaccination helping slow down the sperad of COVID-19?
 
+One of the key factor to examine if the spread of COVID-19 is under control is **the rate of positive test results in total tests conducted**. The line plot below presents an overall trend of the daily positive rate before and after vaccine became available in Canada, whereas the boxplot compares the median and quantile values of positive rate before and after vaccine.
+
 ```{r lineplotly, include=FALSE}
 plot2 <- vaccine %>% 
   select(date,
@@ -202,6 +204,10 @@ fig <- subplot(fig2, plot3, nrows = 2) %>%
 fig
 ```
 
+Both plots above indicates that after vaccine was introduced to Canada, the variation in positive rate decreased. When vaccine was not available, the highest daily positive rate was about 0.14, which means 14% of the tests conducted on that day returned positive results, i.e. 14% of the people tested were confirmed cases. After vaccine became available, the highest positive rate recorded dropped to 0.08, just slightly above half of the highest positive rate before vaccine was introduced.
+
+The box plot confirms this finding, the quantile range after vaccine is available is clearly smaller, however, **although the variation in positive rate decreased, a surprising finding is that the median value of positive rate actually increased from 0.023 to 0.037 after vaccine became available**. The common belief is that vaccine help protect people from being infected by the virus, so the positive rate is expected to decrease after vaccine is available, however, the finding from the boxplot suggests the opposite. The peak of positive rate as well as the variations are lowered by the introduction of vaccine, but the median value increased, is vaccination helping control the spread of COVID-19 in Canada in this case? To answer this question, further exploration is conducted based on not only the availability of vaccine, but also the vaccination rate in Canada.
+
 ```{r, fig.width=8}
 plot4 <- vaccine %>% 
   select(date,
@@ -228,9 +234,7 @@ ggplotly(plot4) %>%
   config(displayModeBar = FALSE)
 ```
 
-
-
-
+The above line plot shows the trend of total cases when vaccine was not available, as well as before and after vaccination rate reached 50% in Canada. A sharp increase can be observed during the stage where vaccination rate is increasing from 0% in December 2020 to 50% in May 2021, based on the timeline, Canada was under attack by the second wave, which explains the rapid increase in total cases. **The curve is flattened once the vaccination rate reached 50%**, a slight increasing trend is appearing at the end, which matches the previous findings of increasing daily cases in August 2021. From the findings observed, it seems that vaccination does help control the spread of COVID-19 but only after vaccination rate reaches 50%. 
 
 ```{r, include=FALSE}
 median_nv <- vaccine %>% 
@@ -292,12 +296,13 @@ plot5 <- vaccine %>%
         legend.text = element_text(size = 11))
 ```
 
-
-
-
 ```{r, fig.width=7}
 plot5
 ```
+
+Another box plot is generated to compare the median and quantile range across the three vaccination stages: no vaccine, 0-50% vaccinated and over 50% vaccinated. The quantile range is smaller after vaccine became available as indicated in earlier section, however, it can be observed that although the median value of positive rate increased from 0.023 to 0.049 after vaccine was introduced, it dropped to 0.019 after vaccination rate reached 50%.
+
+**Based on the findings above, vaccination does help control the spread of COVID-19 virus in Canada, but the results only became obvious after more than half of the population is vaccinated. However, a raising trend in daily confirmed cases can be observed in August 2021, with over 70% of the population is now vaccinated in Canada, whether vaccination indeed can help Canada win the battle against COVID-19 will depend on if the increasing trend can be managed soon enough.**
 
 ### Appendix
 
