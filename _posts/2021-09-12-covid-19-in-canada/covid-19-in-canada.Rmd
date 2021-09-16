@@ -1,7 +1,7 @@
 ---
 title: "COVID-19 in Canada"
 description: |
-  Total of 1,507,092 confirmed cases and 26,989 deaths are reported, with over 65% of the population fully vaccinated in Canada on 31 Aug 2021. Is vaccination effectively preventing the spread of virus reamins questionable. Data from Our World in Data, retrieved on 1 Sep 2021.
+  Total of 1,507,092 confirmed cases and 26,989 deaths were reported, with over 65% of the population fully vaccinated in Canada on 31 Aug 2021. Is vaccination effectively preventing the spread of virus reamins questionable. Data from Our World in Data, retrieved on 1 Sep 2021.
 categories:
   - Canada
   - Cases and Vaccination
@@ -16,7 +16,10 @@ output:
 ---
 
 ```{r setup, include=FALSE}
-knitr::opts_chunk$set(echo = FALSE)
+knitr::opts_chunk$set(echo = FALSE, 
+                      message = FALSE, 
+                      warning = FALSE,
+                      error = FALSE)
 ```
 
 ```{r library, include=FALSE}
@@ -55,28 +58,28 @@ vaccine <- df %>%
                             breaks = c(0,50,80))) 
 
 levels(vaccine$vaccine_rate) <- c(levels(vaccine$vaccine_rate),
-                                  "no vaccine")
-vaccine$vaccine_rate[is.na(vaccine$vaccine_rate)] <- "no vaccine"
+                                  "No Vaccine")
+vaccine$vaccine_rate[is.na(vaccine$vaccine_rate)] <- "No Vaccine"
 
 levels(vaccine$vaccine_rate) <- c(levels(vaccine$vaccine_rate),
                                   "0-50%")
 vaccine$vaccine_rate[which(vaccine$vaccine_rate == "(0,50]")] = "0-50%"
 
 levels(vaccine$vaccine_rate) <- c(levels(vaccine$vaccine_rate),
-                                  "over 50%")
-vaccine$vaccine_rate[which(vaccine$vaccine_rate == "(50,80]")] = "over 50%"
+                                  "Over 50%")
+vaccine$vaccine_rate[which(vaccine$vaccine_rate == "(50,80]")] = "Over 50%"
 ```
 
 
 ### Current COVID-19 situation in Canada
 
-```{r}
+```{r, fig.width=8}
 plot1 <- vaccine %>% 
   select(date,
          new_cases,
          new_deaths) %>% 
-  rename("new cases" = new_cases,
-         "new deaths" = new_deaths) %>% 
+  rename("New Cases" = new_cases,
+         "New Deaths" = new_deaths) %>% 
   pivot_longer(-date,
                names_to = "type",
                values_to = "number") %>% 
@@ -102,6 +105,36 @@ ggplotly(plot1) %>%
 
 
 
+```{r, fig.width=8}
+rate <- vaccine %>% 
+  select(date,
+         people_vaccinated_per_hundred,
+         people_fully_vaccinated_per_hundred) %>% 
+  filter(date >= as.Date("2020-12-01")) %>% 
+  rename("Vaccinated" = people_vaccinated_per_hundred,
+         "Fully Vaccinated" = people_fully_vaccinated_per_hundred) %>%
+  pivot_longer(-date,
+               names_to = "type",
+               values_to = "rate") %>%
+  ggplot(aes(x = date,
+             y = rate,
+             color = type)) +
+  geom_line(size = 1) +
+  theme_bw() +
+  scale_color_brewer(palette = "Dark2") +
+  labs(x = "Date",
+       y = "",
+       title = "Vaccination rate keeps increasing since Dec 2020",
+       color = "Type") +
+  scale_x_date(date_breaks = "2 month") +
+  scale_y_continuous(labels = scales::label_percent(scale = 1)) +
+  theme(axis.text.x = element_text(size = 9),
+        axis.text.y = element_text(size = 11),
+        legend.text = element_text(size = 11))
+
+ggplotly(rate) %>%
+  config(displayModeBar = FALSE)
+```
 
 
 
@@ -125,7 +158,6 @@ plot2 <- vaccine %>%
        title = "Peak of positve rate drops after vaccine is available",
        color = "Vaccine") +
   scale_x_date(date_breaks = "4 month") +
-  scale_y_continuous(labels = scales::label_percent(scale = 100)) +
   scale_color_brewer(palette = "Dark2") +
   theme(axis.text.x = element_text(size = 9),
         axis.text.y = element_text(size = 11),
@@ -135,32 +167,6 @@ fig2 <- ggplotly(plot2) %>%
   config(displayModeBar = FALSE)
 ```
 
-
-```{r}
-plot3 <- vaccine %>% 
-  select(date,
-         positive_rate,
-         vaccine,
-         vaccine_rate) %>%
-  ggplot(aes(x = date,
-             y = positive_rate,
-             color = vaccine)) +
-  geom_boxplot() +
-  theme_bw() +
-  labs(x = "Date",
-       y = "",
-       title = "Peak of positve rate drops after vaccine is available",
-       color = "Vaccine") +
-  scale_x_date(date_breaks = "4 month") +
-  scale_y_continuous(labels = scales::label_percent(scale = 100)) +
-  scale_color_brewer(palette = "Dark2") +
-  theme(axis.text.x = element_text(size = 9),
-        axis.text.y = element_text(size = 11),
-        legend.text = element_text(size = 11)) +
-  coord_flip()
-
-plot3
-```
 
 ```{r boxplotly, include=FALSE}
 plot3 <- vaccine %>% 
@@ -180,14 +186,14 @@ plot3 <- plot3 %>%
 
 ```
 
-```{r, fig.width=10}
+```{r, fig.width=10, fig.height=7}
 fig <- subplot(fig2, plot3, nrows = 2) %>% 
-  layout(title = "Whether vaccine reduce positive rate is questionable") %>%
+  layout(title = "Is vaccination reducing positive rate?") %>%
   config(displayModeBar = FALSE)
 fig
 ```
 
-```{r}
+```{r, fig.width=8}
 plot4 <- vaccine %>% 
   select(date,
          total_cases,
@@ -200,7 +206,7 @@ plot4 <- vaccine %>%
   theme_bw() +
   labs(x = "Date",
        y = "",
-       title = "Trend of total cases by vaccine rate",
+       title = "Trend of total cases by vaccination rate",
        color = "Vaccination Rate") +
   scale_y_continuous(labels = scales::comma) +
   scale_x_date(date_breaks = "4 month") +
@@ -214,6 +220,74 @@ ggplotly(plot4) %>%
 ```
 
 
+```{r, include=FALSE}
+median_nv <- vaccine %>% 
+  filter(vaccine_rate == "No Vaccine") %>% 
+  summarise(median = median(positive_rate, na.rm = TRUE))
+
+median_v <- vaccine %>% 
+  filter(vaccine_rate == "0-50%") %>% 
+  summarise(median = median(positive_rate, na.rm = TRUE))
+
+median_50 <- vaccine %>% 
+  filter(vaccine_rate == "Over 50%") %>% 
+  summarise(median = median(positive_rate, na.rm = TRUE))
+
+plot5 <- vaccine %>% 
+  select(date,
+         positive_rate,
+         vaccine_rate) %>%
+  ggplot(aes(x = date,
+             y = positive_rate,
+             fill = vaccine_rate)) +
+  geom_boxplot() +
+  geom_hline(yintercept = median_nv[[1]],
+             color = "red",
+             size = 1.2) +
+  geom_hline(yintercept = median_v[[1]],
+             color = "forestgreen",
+             size = 1.2) +
+  geom_hline(yintercept = median_50[[1]],
+             color = "blue3",
+             size = 1.2) +
+  geom_text(aes(as.Date("2020-01-26"),
+                median_nv[[1]],
+                label = median_nv[[1]],
+                vjust = -1),
+            color = "tomato",
+            check_overlap = TRUE) +
+  geom_text(aes(as.Date("2021-08-01"),
+                median_v[[1]],
+                label = median_v[[1]],
+                vjust = -1),
+            color = "forestgreen",
+            check_overlap = TRUE) +
+  geom_text(aes(as.Date("2021-08-31"),
+                median_nv[[1]],
+                label = median_50[[1]],
+                vjust = -1),
+            color = "blue3",
+            check_overlap = TRUE) +
+  theme_bw() +
+  labs(x = "",
+       y = "",
+       title = "Positive rate decreased when vaccination rate is over 50%",
+       fill = "Vaccine Rate") +
+  scale_x_date(date_breaks = "4 month") +
+  scale_color_brewer(palette = "Dark2") +
+  theme(axis.text.x = element_text(size = 9),
+        axis.text.y = element_text(size = 11),
+        legend.text = element_text(size = 11))
+```
+
+```{r, fig.width=7}
+plot5
+```
 
 
+### References
+
+C. Sievert. Interactive Web-Based Data Visualization with R, plotly, and shiny. Chapman and Hall/CRC Florida, 2020.
+
+Wickham et al., (2019). Welcome to the tidyverse. Journal of Open Source Software, 4(43), 1686, https://doi.org/10.21105/joss.01686
 
