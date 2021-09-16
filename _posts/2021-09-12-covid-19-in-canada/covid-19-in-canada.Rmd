@@ -71,14 +71,14 @@ levels(vaccine$vaccine_rate) <- c(levels(vaccine$vaccine_rate),
 vaccine$vaccine_rate[which(vaccine$vaccine_rate == "(50,80]")] = "Over 50%"
 ```
 
-The COVID-19 pandemic in Canada is part of the ongoing global pandemic first detected in January 2020, the first confirmed case was reported in Canada on 27 January 2020 [(Wikipedia, 2021)](https://en.wikipedia.org/wiki/COVID-19_pandemic_in_Canada). The first wave attacked Canada in March 2020, followed by the second in November 2020, and according to Treble (2021), Canada is currently facing the potential third wave with the cases increasing from July 2021. 
+The COVID-19 pandemic in Canada is part of the ongoing global pandemic first detected in January 2020, the first confirmed case was reported in Canada on 27 January 2020 [(Wikipedia, 2021)](https://en.wikipedia.org/wiki/COVID-19_pandemic_in_Canada). The first wave attacked Canada in March 2020, followed by the second in November 2020, and according to Treble (2021), Canada is currently facing the potential third wave with the cases increasing from August 2021. 
 
-The analysis and plots generated in this post are based on the data retrieved from [Our World in Data](https://ourworldindata.org/coronavirus/country/chile) on 1 September 2021, with all data up to date **from 23 February 2020 to 31 August 2021**. Detailed data description can be found in [Data Description](https://etc5523-2021.github.io/blog-xwan0274/posts/2021-09-01-data-description/).
+The analysis and plots generated in this post are based on the data retrieved from [Our World in Data](https://ourworldindata.org/coronavirus/country/chile) on 1 September 2021, with all data up to date **from 23 February 2020 to 31 August 2021**. Detailed data descriptions can be found in [Data Description](https://etc5523-2021.github.io/blog-xwan0274/posts/2021-09-01-data-description/).
 
 
 ### Current COVID-19 situation in Canada
 
-As on 31 August 2021, there are `r max(vaccine$total_cases)` total cases and `r max(vaccine$total_deaths)` total deaths recorded in Canada, and `r max(vaccine$total_tests)` in total have been conducted since January 2020. Vaccine was first introduced in Canada in December 2020, around 73% of the population is vaccinated with about 66% of the population fully vaccinated as recorded on 31 August 2021.
+As of 31 August 2021, there are 1,507,092 cases and 26,989 deaths recorded in Canada, and 40,539,628 tests in total have been conducted since January 2020. Vaccine was first introduced to Canada in December 2020, around 73% of the population is vaccinated with about 66% of the population fully vaccinated as recorded on 31 August 2021.
 
 ```{r, fig.width=8}
 plot1 <- vaccine %>% 
@@ -110,11 +110,11 @@ ggplotly(plot1) %>%
   config(displayModeBar = FALSE)
 ```
 
-The plot above demonstrates an overall view of daily confirmed cases and deaths reported since January 2020. It can be observed that while the confirmed cases varied dramatically over the past two years, the number of daily deaths remains relatively steady, the highest daily death recorded was `r max(vaccine$new_deaths)` on 29 April 2020. 
+The plot above demonstrates an overall view of daily confirmed cases and deaths reported since January 2020. It can be observed that while the confirmed cases varied dramatically over the past two years, the number of daily deaths remained relatively steady, the highest daily death recorded was `r max(vaccine$new_deaths, na.rm = TRUE)` on 29 April 2020. 
 
-As for the daily cases, the first wave can be easily identified from the plot, where the daily confirmed cases experienced a significant increase in March 2020, but the situation was soon under control and the daily new cases dropped below 10 in July 2020. The second wave in November 2020 exerted much higher impact on the daily cases and lasted much longer, a sharp increase can be observed from November 2020 to January 2021, the peak value of daily confirmed cases at that time was over 10,000. Although it dropped back to around 2,000 cases per day in March 2021, the number soon rocketed again back to over 10,000 in April 2021. 
+As for the daily cases, the first wave can be easily identified from the plot where the daily confirmed cases experienced a significant increase in March 2020, but the situation was soon under control and the daily new cases dropped below 10 in July 2020. The second wave in November 2020 exerted much higher impacts on the daily cases and lasted much longer, a sharp increase can be observed from November 2020 to January 2021, the peak value of daily confirmed cases at that time was over 10,000. Although it dropped back to around 2,000 cases per day in March 2021, the number soon rocketed again back to over 10,000 in April 2021. 
 
-The attack of second wave was not over until July 2021, the daily confirmed cases fell under 800 again, however, **a increasing trend start from August 2021 can already be seen from the above plot**. Treble (2021) expressed the concern that it might be the start of the third wave, get the population vaccinated seems to be the only way to win this battle.
+The attack of the second wave was not over until July 2021, the daily confirmed cases fell under 800 again, however, **an increasing trend start from August 2021 can already be seen from the above plot**. Treble (2021) expressed the concern that it might be the start of the third wave, get the population vaccinated seems to be the only way to win this battle.
 
 ```{r, fig.width=8}
 rate <- vaccine %>% 
@@ -147,12 +147,12 @@ ggplotly(rate) %>%
   config(displayModeBar = FALSE)
 ```
 
-The bright side of the picture is that Canada is fully immunising its population at a blistering speed. The vaccine was first introduced to Canada in December 2020, **although over 50% of the population took their first dose as recorded on 1 June 2021, only 6% of the population was fully vaccinated.** A sharp increase in fully vaccinated rate occurred soon after, as on 31 August 2021, over 65% of the population in Canada is fully vaccinated, with around 73% of the population received their first dose. However, **a increasing trend in daily confirmed cases is still observed even after majority of the population are vaccinated**, that raises the concern: is vaccination really helping Canada in wining the battle against the COVID-19 pandemic?
+The bright side of the picture is that Canada is fully immunising its population at a blistering speed. The vaccine was first introduced to Canada in December 2020, **although over 50% of the population took their first dose as recorded on 1 June 2021, only 6% of the population was fully vaccinated.** A sharp increase in fully vaccinated rate occurred soon after, as of 31 August 2021, over 65% of the population in Canada is fully vaccinated, with around 73% of the population received their first dose. However, **an increasing trend in daily confirmed cases is still observed even after the majority of the population are vaccinated**, which raises the concern: is vaccination really helping Canada in winning the battle against the COVID-19 pandemic?
 
 
 ### Is vaccination helping slow down the sperad of COVID-19?
 
-One of the key factor to examine if the spread of COVID-19 is under control is **the rate of positive test results in total tests conducted**. The line plot below presents an overall trend of the daily positive rate before and after vaccine became available in Canada, whereas the boxplot compares the median and quantile values of positive rate before and after vaccine.
+One of the key factors to examine if the spread of COVID-19 is under control is **the rate of positive test results in total tests conducted**. The line plot below presents an overall trend of the daily positive rate before and after vaccine became available in Canada, whereas the boxplot compares the median and quantile values of positive rate before and after vaccine.
 
 ```{r lineplotly, include=FALSE}
 plot2 <- vaccine %>% 
@@ -204,9 +204,9 @@ fig <- subplot(fig2, plot3, nrows = 2) %>%
 fig
 ```
 
-Both plots above indicates that after vaccine was introduced to Canada, the variation in positive rate decreased. When vaccine was not available, the highest daily positive rate was about 0.14, which means 14% of the tests conducted on that day returned positive results, i.e. 14% of the people tested were confirmed cases. After vaccine became available, the highest positive rate recorded dropped to 0.08, just slightly above half of the highest positive rate before vaccine was introduced.
+Both plots above indicate that after vaccine was introduced to Canada, the variation in positive rate decreased. When vaccine was not available, the highest daily positive rate was about 0.14, which means 14% of the tests conducted on that day returned positive results, i.e. 14% of the people tested were confirmed cases. After vaccine became available, the highest positive rate recorded dropped to 0.08, just slightly above half of the highest positive rate before vaccine was introduced.
 
-The box plot confirms this finding, the quantile range after vaccine is available is clearly smaller, however, **although the variation in positive rate decreased, a surprising finding is that the median value of positive rate actually increased from 0.023 to 0.037 after vaccine became available**. The common belief is that vaccine help protect people from being infected by the virus, so the positive rate is expected to decrease after vaccine is available, however, the finding from the boxplot suggests the opposite. The peak of positive rate as well as the variations are lowered by the introduction of vaccine, but the median value increased, is vaccination helping control the spread of COVID-19 in Canada in this case? To answer this question, further exploration is conducted based on not only the availability of vaccine, but also the vaccination rate in Canada.
+The box plot confirms this finding, the quantile range after vaccine is available is clearly smaller, however, **although the variation in positive rate decreased, a surprising finding is that the median value of positive rate actually increased from 0.023 to 0.037 after vaccine became available**. The common belief is that vaccine help protects people from being infected by the virus, so the positive rate is expected to decrease after vaccine is available, however, the finding from the boxplot suggests the opposite. The peak of positive rate as well as the variations are lowered by the introduction of vaccine, but the median value increased, is vaccination helping control the spread of COVID-19 in Canada in this case? To answer this question, further exploration is conducted based on not only the availability of vaccine, but also the vaccination rate in Canada.
 
 ```{r, fig.width=8}
 plot4 <- vaccine %>% 
@@ -234,7 +234,7 @@ ggplotly(plot4) %>%
   config(displayModeBar = FALSE)
 ```
 
-The above line plot shows the trend of total cases when vaccine was not available, as well as before and after vaccination rate reached 50% in Canada. A sharp increase can be observed during the stage where vaccination rate is increasing from 0% in December 2020 to 50% in May 2021, based on the timeline, Canada was under attack by the second wave, which explains the rapid increase in total cases. **The curve is flattened once the vaccination rate reached 50%**, a slight increasing trend is appearing at the end, which matches the previous findings of increasing daily cases in August 2021. From the findings observed, it seems that vaccination does help control the spread of COVID-19 but only after vaccination rate reaches 50%. 
+The above line plot shows the trend of total cases when vaccine was not available, as well as before and after vaccination rate reached 50% in Canada. A sharp increase can be observed during the stage where vaccination rate is increasing from 0% in December 2020 to 50% in May 2021, based on the timeline, Canada was under attack by the second wave, which explains the rapid increase in total cases. **The curve is flattened once the vaccination rate reached 50%**, an increasing trend is appearing at the end, which matches the previous findings of increasing daily cases in August 2021. From the findings observed, it seems that vaccination does help control the spread of COVID-19 but only after vaccination rate reaches 50%. 
 
 ```{r, include=FALSE}
 median_nv <- vaccine %>% 
@@ -300,9 +300,9 @@ plot5 <- vaccine %>%
 plot5
 ```
 
-Another box plot is generated to compare the median and quantile range across the three vaccination stages: no vaccine, 0-50% vaccinated and over 50% vaccinated. The quantile range is smaller after vaccine became available as indicated in earlier section, however, it can be observed that although the median value of positive rate increased from 0.023 to 0.049 after vaccine was introduced, it dropped to 0.019 after vaccination rate reached 50%.
+Another boxplot is generated to compare the median and quantile range across the three vaccination stages: no vaccine, 0-50% vaccinated and over 50% vaccinated. The quantile range is smaller after vaccine became available as indicated in the earlier section, however, it can be observed that although the median value of positive rate increased from 0.023 to 0.049 after vaccine was introduced, it dropped to 0.019 after vaccination rate reached 50%.
 
-**Based on the findings above, vaccination does help control the spread of COVID-19 virus in Canada, but the results only became obvious after more than half of the population is vaccinated. However, a raising trend in daily confirmed cases can be observed in August 2021, with over 70% of the population is now vaccinated in Canada, whether vaccination indeed can help Canada win the battle against COVID-19 will depend on if the increasing trend can be managed soon enough.**
+Based on the findings above, **vaccination does help control the spread of the COVID-19 virus in Canada, but the results only became obvious after more than half of the population is vaccinated**. However, a rising trend in daily confirmed cases can be observed in August 2021, with over 70% of the population is now vaccinated in Canada, **whether vaccination indeed can help Canada win the battle against COVID-19 still depend on if the increasing trend can be managed soon enough.**
 
 ### Appendix
 
