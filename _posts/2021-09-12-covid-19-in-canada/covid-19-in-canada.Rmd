@@ -25,6 +25,7 @@ knitr::opts_chunk$set(echo = FALSE,
 ```{r library, include=FALSE}
 library(tidyverse)
 library(plotly)
+library(DT)
 ```
 
 ```{r data, include=FALSE}
@@ -70,8 +71,14 @@ levels(vaccine$vaccine_rate) <- c(levels(vaccine$vaccine_rate),
 vaccine$vaccine_rate[which(vaccine$vaccine_rate == "(50,80]")] = "Over 50%"
 ```
 
+The COVID-19 pandemic in Canada is part of the ongoing global pandemic first detected in January 2020, the first confirmed case was reported in Canada on 27 January 2020 [(Wikipedia, 2021)](https://en.wikipedia.org/wiki/COVID-19_pandemic_in_Canada). The first wave attacked Canada in March 2020, followed by the second in November 2020, and according to Treble (2021), Canada is currently facing the potential third wave with the cases increasing from July 2021. 
+
+The analysis and plots generated in this post are based on the data retrieved from [Our World in Data](https://ourworldindata.org/coronavirus/country/chile) on 1 September 2021, with all data up to date **from 23 February 2020 to 31 August 2021**. Detailed data description can be found in [Data Description](https://etc5523-2021.github.io/blog-xwan0274/posts/2021-09-01-data-description/).
+
 
 ### Current COVID-19 situation in Canada
+
+As on 31 August 2021, there are `r max(vaccine$total_cases` total cases and `r max(vaccine$total_deaths)` total deaths recorded in Canada, and `r max(vaccine$total_tests` in total have been conducted since January 2020. Vaccine is first introduced in Canada in December 2020, around 73% of the population is vaccinated with about 66% of the population fully vaccinated as recorded on 31 August 2021.
 
 ```{r, fig.width=8}
 plot1 <- vaccine %>% 
@@ -284,10 +291,59 @@ plot5 <- vaccine %>%
 plot5
 ```
 
+A summary of historical data of daily and cumulative confirmed cases, deaths, tests performed, vaccination administrated and number of people vaccinated from February 2020 to August 2021 is available below for anyone who is interested. Blank cells represent data unavailable.
+
+```{r, include=FALSE}
+tabledf <- vaccine %>% 
+  select(date,
+         new_cases,
+         total_cases,
+         new_deaths,
+         total_deaths,
+         new_tests,
+         total_tests,
+         new_vaccinations,
+         total_vaccinations,
+         people_vaccinated,
+         people_vaccinated_per_hundred,
+         people_fully_vaccinated,
+         people_fully_vaccinated_per_hundred)
+```
+
+```{r table3}
+datatable(tabledf,
+          colnames = c("Date", 
+                       "New Cases", 
+                       "Total Cases", 
+                       "New Deaths",
+                       "Total Deaths",
+                       "New Tests", 
+                       "Total Tests", 
+                       "New Vaccinations", 
+                       "Total Vaccinations",
+                       "People Vaccinated", 
+                       "Vaccinated Rate", 
+                       "People Fully Vaccinated",
+                       "Fully Vaccinated Rate"),
+          options = list(initComplete = JS(
+          "function(settings, json) {",
+          "$(this.api().table().header()).css({'background-color': '#404b5d', 'color': '#fff'});",
+          "}"),
+          scrollX = TRUE,
+          columnDefs = list(list(className = "dt-center", targets = 2:13),
+                            list(className = "dt-left", targets = 1)))
+          )
+```
 
 ### References
 
 C. Sievert. Interactive Web-Based Data Visualization with R, plotly, and shiny. Chapman and Hall/CRC Florida, 2020.
 
+Treble, P. (2021). COVID-19 in Canada: How our battle to stop the pandemic is going. MACLEAN'S. Retrieved from https://www.macleans.ca/society/health/covid-19-in-canada-how-our-battle-against-the-second-wave-is-going/
+
 Wickham et al., (2019). Welcome to the tidyverse. Journal of Open Source Software, 4(43), 1686, https://doi.org/10.21105/joss.01686
 
+Wikipedia (2021). COVID-19 pandemic in Canada. Retrieved from https://en.wikipedia.org/wiki/COVID-19_pandemic_in_Canada
+
+Yihui Xie, Joe Cheng and Xianying Tan (2021). DT: A Wrapper of the JavaScript Library 'DataTables'. R package version 0.18. https://CRAN.R-project.org/package=DT
+  
